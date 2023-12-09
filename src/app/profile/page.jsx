@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/context/authContext';
 import { logout } from '@/services/auth/logout';
+import { token } from '@/services/auth/token';
 import { Tabs, Tab, Card, CardBody, Input, Button, Spinner } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import React, {  useLayoutEffect, useState } from 'react';
@@ -11,7 +12,8 @@ const Page = () => {
   useLayoutEffect(() => {
     const fetchData = async () => {
       try {
-        if (!auth) {
+        const { data } = await token();
+        if (!data.token) {
           router.push('/login');
         }
        
@@ -24,7 +26,6 @@ const Page = () => {
   }, []); // Run only on mount
 
   const [auth, setAuth] = useAuth();
-  console.log(auth)
   const [updateLoading, setUpdateLoading] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
 
