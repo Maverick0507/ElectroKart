@@ -11,7 +11,7 @@ const Page = () => {
   useLayoutEffect(() => {
     const fetchData = async () => {
       try {
-        if (auth) {
+        if (!auth) {
           router.push('/login');
         }
        
@@ -24,6 +24,7 @@ const Page = () => {
   }, []); // Run only on mount
 
   const [auth, setAuth] = useAuth();
+  console.log(auth)
   const [updateLoading, setUpdateLoading] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
 
