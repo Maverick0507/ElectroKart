@@ -17,15 +17,12 @@ const AuthProvider = ({ children }) => {
       if (data) {
         const parsedData = JSON.parse(data);
         const userToken = await token();
-        console.log(userToken.userToken)
         if (userToken.token) {
           setAuth({
             user: parsedData.user,
             token: parsedData.token,
           });
-        } else {
-          localStorage.removeItem('auth');
-        }
+        } 
       }
     };
 
