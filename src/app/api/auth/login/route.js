@@ -50,7 +50,8 @@ export async function POST(req) {
             name: 'access_token',
             value: token,
             httpOnly: true,
-            maxAge: 60 * 60 * 24 * 7
+            maxAge: 60 * 60 * 24 * 7,
+            path:'/'
         })
 
 
