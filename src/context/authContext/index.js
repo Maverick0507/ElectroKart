@@ -17,7 +17,8 @@ const AuthProvider = ({ children }) => {
       if (data) {
         const parsedData = JSON.parse(data);
         const userToken = await token();
-        if (userToken) {
+        console.log(userToken.userToken)
+        if (userToken.token) {
           setAuth({
             user: parsedData.user,
             token: parsedData.token,
@@ -29,7 +30,7 @@ const AuthProvider = ({ children }) => {
     };
 
     fetchData();
-  }, []); // Only run on mount
+  }, []); 
 
   return (
     <AuthContext.Provider value={[auth, setAuth]}>

@@ -1,5 +1,4 @@
 'use client';
-import jwt from 'jsonwebtoken';
 import DropdownMenu from '@/components/DropMenu/index';
 import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
@@ -23,6 +22,8 @@ const Index = () => {
 
 
   const [auth] = useAuth();
+
+ 
 
   
   const show = () => {
