@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,   },
+        required: true,
+    },
     slug: {
         type: String,
         required: true,
@@ -17,7 +18,8 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,    ref: "productCategory",
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "productCategory",
         required: true,
     },
     colors: [String],
@@ -25,13 +27,23 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    photos: {
-        data: Buffer,
-        contentType: String,
-    },
+    photos: [
+        {
+            data: {
+                type: Buffer,
+                required: true,
+            },
+            contentType: {
+                type: String,
+                required: true,
+            },
+        },
+    ],
     shipping: {
         type: Boolean,
     },
 }, { timestamps: true });
 
-export default mongoose.model('Product', productSchema);
+const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+
+export default Product;

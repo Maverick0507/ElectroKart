@@ -18,10 +18,7 @@ const AuthProvider = ({ children }) => {
       if (data) {
         const parsedData = JSON.parse(data);
         const userToken = await token();
-        console.log(userToken.data);
-        console.log('1');
         if (userToken.data.success) {
-          console.log('2');
           setAuth({
             user: parsedData.user,
             token: parsedData.token,
