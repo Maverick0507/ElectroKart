@@ -22,6 +22,7 @@ const Index = () => {
 
 
   const [auth] = useAuth();
+  console.log(auth?.user?.role)
 
  
 
