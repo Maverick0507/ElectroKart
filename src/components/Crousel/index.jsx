@@ -59,6 +59,7 @@ const Index = () => {
 
   useEffect(() => {
     getAllCategory();
+    getSubCategories()
   }, []);
 
   useEffect(() => {
