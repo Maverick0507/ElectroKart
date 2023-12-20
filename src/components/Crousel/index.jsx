@@ -38,45 +38,25 @@ const Index = () => {
 
   const getSubCategories = async () => {
     try {
-      // Clear existing subcategories
       setSubCategory([]);
 
-      // Use Promise.all to fetch subcategories for all parentCategoryIDs concurrently
-      const subCategoriesPromises = parentCategoryIDs.map(async (parentId) => {
-        try {
-          const { data } = await fetchCategory({
-            type: 'subCategory',
-            limit: "3",
-            parentCategory: parentId,
-          });
 
-          if (data.success) {
-            return data.AllCategory;
-          } else {
-            console.error(`Error fetching subcategories for parent category ${parentId}:`, data.error);
-            return []; // Return an empty array if there's an error
-          }
-        } catch (error) {
-          console.error(`Error fetching subcategories for parent category ${parentId}:`, error);
-          return []; // Return an empty array if there's an error
-        }
+      const { data } = await fetchCategory({
+        type: "subcategory",
+        parentCategory: "657c3153609a340d2d8c48dc",
+        limit: "8",
       });
 
-      // Wait for all promises to resolve
-      const subCategoriesResults = await Promise.all(subCategoriesPromises);
+      if (data.success) {
+        setSubCategory(data.AllCategory)
+      } else {
+        console.error("Error fetching subcategories");
+      }
 
-      // Flatten the array of arrays
-      const flattenedSubCategories = subCategoriesResults.flat();
-
-      // Update state with the fetched subcategories
-      setSubCategory(flattenedSubCategories);
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
-
-
 
   useEffect(() => {
     getAllCategory();
@@ -95,38 +75,28 @@ const Index = () => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1
   };
   return (
 
     <div>
-      {subCategory.map((i) =>
-      (
-        <p>{i.name}</p>
-      ))}
       <div className="w-[100%] p-9">
         <Slider
           className=" w-[100%]"
           {...settings}>
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
+          {subCategory.map((slide, i) => (
+            <div className=" " key={i}
+              onClick={() => route.push(`/products/${slide._id}`)}
+            >
+              <div className=" h-[90%] mx-3 cursor-pointer shadow-md shadow-slate-300 hover:scale-105 duration-400 ease-linear rounded-md">
+                <img
+                  className=" h-[80%] w-full rounded-md "
+                  src={slide.photos} alt=" product photo" />
+                <p className=" h-[20%] flex justify-center items-center font-semibold uppercase">{slide.name}</p>
+              </div>
+            </div>
+          ))}
         </Slider>
       </div>
     </div>
