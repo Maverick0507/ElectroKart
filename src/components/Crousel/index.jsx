@@ -38,29 +38,43 @@ const Index = () => {
 
   const getSubCategories = async () => {
     try {
-      const subCategoriesPromises = parentCategoryIDs.map(async (parentId) => {
-        const { data } = await fetchCategory({
-          type: 'subCategory',
-          limit: "3",
-          parentCategory: parentId,
-        });
+      // Clear existing subcategories
+      setSubCategory([]);
 
-        if (data.success) {
-          return data.AllCategory;
-        } else {
-          console.error(`Error fetching subcategories for parent category ${parentId}:`, data.error);
+      // Use Promise.all to fetch subcategories for all parentCategoryIDs concurrently
+      const subCategoriesPromises = parentCategoryIDs.map(async (parentId) => {
+        try {
+          const { data } = await fetchCategory({
+            type: 'subCategory',
+            limit: "3",
+            parentCategory: parentId,
+          });
+
+          if (data.success) {
+            return data.AllCategory;
+          } else {
+            console.error(`Error fetching subcategories for parent category ${parentId}:`, data.error);
+            return []; // Return an empty array if there's an error
+          }
+        } catch (error) {
+          console.error(`Error fetching subcategories for parent category ${parentId}:`, error);
           return []; // Return an empty array if there's an error
         }
       });
 
+      // Wait for all promises to resolve
       const subCategoriesResults = await Promise.all(subCategoriesPromises);
-      const flattenedSubCategories = subCategoriesResults.flat(); // Flatten the array of arrays
 
+      // Flatten the array of arrays
+      const flattenedSubCategories = subCategoriesResults.flat();
+
+      // Update state with the fetched subcategories
       setSubCategory(flattenedSubCategories);
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
 
 
 
