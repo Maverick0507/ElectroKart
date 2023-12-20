@@ -78,7 +78,7 @@ const Index = () => {
         modules={[Pagination, Navigation]}
         navigation={true}
         loopFillGroupWithBlank={true}
-        slidesPerView={5}
+        slidesPerView={4}
         slidesPerGroup={1}
         loop={true}
         className=" h-full  "
