@@ -2,14 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { fetchCategory } from "@/services/admin/category";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, A11y } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
-import './style.css'
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import { useRouter } from "next/navigation";
 
 
 const Index = () => {
-
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [parentCategoryIDs, setParentCategoryIDs] = useState([]);
@@ -73,30 +75,29 @@ const Index = () => {
 
   return (
 
-    <div>
-      <Swiper
-        modules={[Pagination, Navigation]}
-        navigation={true}
-        loopFillGroupWithBlank={true}
-        slidesPerView={4}
-        slidesPerGroup={1}
-        loop={true}
-        className=" h-full  "
-      >
-        {subCategory.map((slide, i) => (
-          <SwiperSlide className=" h-full pl-5 pr-5 overflow-hidden" key={i}
-            onClick={() => route.push(`/products/${slide._id}`)}
-          >
-            <div className=" h-[90%] mx-3 cursor-pointer shadow-md shadow-slate-300 hover:scale-105 duration-400 ease-linear rounded-md">
-              <img
-                className=" h-[80%] w-full rounded-md "
-                src={slide.photos} alt=" product photo" />
-              <p className=" h-[20%] flex justify-center items-center font-semibold uppercase">{slide.name}</p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+    <Swiper
+      modules={[Navigation]}
+      spaceBetween={50}
+      slidesPerView={4}
+      navigation
+      loop={true}
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log('slide change')}
+      className=" h-full  "
+    >
+      {subCategory.map((slide, i) => (
+        <SwiperSlide className=" h-full pl-5 pr-5 overflow-hidden" key={i}
+          onClick={() => route.push(`/products/${slide._id}`)}
+        >
+          <div className=" h-[90%] mx-3 cursor-pointer shadow-md shadow-slate-300 hover:scale-105 duration-400 ease-linear rounded-md">
+            <img
+              className=" h-[80%] w-full rounded-md "
+              src={slide.photos} alt=" product photo" />
+            <p className=" h-[20%] flex justify-center items-center font-semibold uppercase">{slide.name}</p>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 };
 
