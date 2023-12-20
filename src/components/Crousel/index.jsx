@@ -38,24 +38,8 @@ const Index = () => {
 
   const getSubCategories = async () => {
     try {
-      setSubCategory([]);
-
-      for (const i of parentCategoryIDs) {
-        const { data } = await fetchCategory({
-          type: "subcategory",
-          parentCategory: i,
-          limit: "3",
-        });
-
-        if (data.success) {
-          setSubCategory((prevSubCategory) => [
-            ...prevSubCategory,
-            ...data.AllCategory,
-          ]);
-        } else {
-          console.error("Error fetching subcategories");
-        }
-      }
+      const { data } = await fetchCategory({ type: 'subCategory', limit: "3", parentCategory: '657c3153609a340d2d8c48dc' })
+      setSubCategory(data.AllCategory)
     } catch (error) {
       console.error("Error:", error);
     }
@@ -85,33 +69,33 @@ const Index = () => {
 
     <div>
       <h2> Single Item</h2>
-      {subCategory.map((i)=>
+      {subCategory.map((i) =>
       (
         <p>{i.name}</p>
       ))}
       <div className="w-[100%] p-9">
-      <Slider
-      className=" w-[100%]"
-       {...settings}>
-        <div>
-          <h3>1</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
-      </Slider>
+        <Slider
+          className=" w-[100%]"
+          {...settings}>
+          <div>
+            <h3>1</h3>
+          </div>
+          <div>
+            <h3>2</h3>
+          </div>
+          <div>
+            <h3>3</h3>
+          </div>
+          <div>
+            <h3>4</h3>
+          </div>
+          <div>
+            <h3>5</h3>
+          </div>
+          <div>
+            <h3>6</h3>
+          </div>
+        </Slider>
       </div>
     </div>
   );
