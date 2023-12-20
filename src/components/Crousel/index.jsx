@@ -42,10 +42,7 @@ const Index = () => {
       for (const i of parentCategoryIDs) {
         const { data } = await fetchCategory({ type: 'subCategory', limit: "3", parentCategory: i });
         if (data.success) {
-          setSubCategory((prevSubCategory) => [
-            ...prevSubCategory,
-            ...data.AllCategory,
-          ]);
+          setSubCategory(data.AllCategory);
         } else {
           console.error("Error fetching subcategories:", data.error); // Log the error message
         }
