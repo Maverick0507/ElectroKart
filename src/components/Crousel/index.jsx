@@ -85,7 +85,7 @@ const Index = () => {
 
     <div>
       <h2> Single Item</h2>
-      {subCategory.map((i)=>
+      {category.map((i)=>
       (
         <p>{i.name}</p>
       ))}
