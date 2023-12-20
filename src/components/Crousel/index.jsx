@@ -39,22 +39,23 @@ const Index = () => {
   const getSubCategories = async () => {
     try {
       setSubCategory([]);
-
+  
       for (const i of parentCategoryIDs) {
-        const { data } = await fetchCategory({ type: 'subCategory', limit: "3", parentCategory: i })
+        const { data } = await fetchCategory({ type: 'subCategory', limit: "3", parentCategory: i });
         if (data.success) {
           setSubCategory((prevSubCategory) => [
             ...prevSubCategory,
-           ...data.AllCategory,
+            ...data.AllCategory,
           ]);
         } else {
-          console.error("Error fetching subcategories");
+          console.error("Error fetching subcategories:", data.error); // Log the error message
         }
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
+  
 
   useEffect(() => {
     getAllCategory();
@@ -79,7 +80,6 @@ const Index = () => {
   return (
 
     <div>
-      <h2> Single Item</h2>
       {subCategory.map((i) =>
       (
         <p>{i.name}</p>
