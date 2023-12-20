@@ -38,7 +38,6 @@ const Index = () => {
 
   const getSubCategories = async () => {
     try {
-      setSubCategory([]);
   
       for (const i of parentCategoryIDs) {
         const { data } = await fetchCategory({ type: 'subCategory', limit: "3", parentCategory: i });
