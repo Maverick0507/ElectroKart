@@ -59,6 +59,7 @@ export default function Home() {
 
       {/* crousel */}
       <div className=" w-full h-[40%] mt-10">
+        bonku
         <Crousel />
       </div>
     </main>
