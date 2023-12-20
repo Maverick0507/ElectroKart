@@ -44,7 +44,7 @@ const Index = () => {
         const { data } = await fetchCategory({
           type: "subcategory",
           parentCategory: i,
-          limit: "2",
+          limit: "3",
         });
 
         if (data.success) {
