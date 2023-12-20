@@ -1,19 +1,23 @@
 import Image from "next/image"
 import { Button } from "@nextui-org/react"
+import Crousel from "@/components/Crousel/index"
 import laptop from '../../public/image/laptop.jpeg'
 import phone from '../../public/image/phone.jpeg'
 import headphone from '../../public/image/headphone.jpeg'
 import earbud from '../../public/image/earbud.jpeg'
 
 
+
+
 export default function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col pt-[6.5rem] md:pt-[4.5rem]">
+    <main className="flex min-h-screen flex-col pt-[7rem]  md:pt-[4.5rem] mt-2 mb-5">
 
       {/* start */}
 
-      <div className=" flex justify-between items-center">
+      {/*div 1 */}
+      <div className=" flex justify-between items-center gap-4">
 
         <div className=" w-[50vw] h-[80vh]  relative">
           <Image
@@ -32,24 +36,30 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-[30vw] h-[80vh] cursor-pointer">
+        <div className="w-[30vw] h-[80vh] cursor-pointer ">
           <Image src={phone} className="h-[70%]" />
           <h1 className="font-bold p-3 text-xl">Best Smartphone</h1>
           <h1 className="font-bold p-3 text-xl">In Your Range !</h1>
         </div>
 
 
-        <div className="w-[20vw] h-[80vh] flex flex-col">
-          <div className=" h-[40vh] w-full relative cursor-pointer">
-            <Image src={headphone} className=" object-cover " />
-            <p className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Play now</p>
+        <div className="w-[20vw] h-[80vh] flex flex-col  gap-[4vh] ">
+
+          <div className="  h-[38vh] w-full relative cursor-pointer rou">
+            <Image src={headphone} className=" object-cover h-full" />
+            <Button className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Play now</Button>
           </div>
-          <div className=" h-[40vh] w-full relative cursor-pointer">
+          <div className="  h-[38vh] w-full relative cursor-pointer">
             <Image src={earbud} className=" object-cover w-full h-full" />
-            <p className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Explore Our New Earbuds</p>
+            <Button className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Explore Our New Earbuds</Button>
           </div>
         </div>
 
+      </div>
+
+      {/* crousel */}
+      <div className=" w-full h-[40%] mt-10">
+        <Crousel />
       </div>
     </main>
   )

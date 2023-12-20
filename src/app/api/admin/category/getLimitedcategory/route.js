@@ -1,17 +1,24 @@
 import connectToDb from '@/database/index';
 import { NextResponse } from 'next/server';
 import ProductCategory from '@/models/category'
+import AuthUser from '@/middleware/AuthUser';
 
 
 export const dynamic = "force-dynamic";
 
 
-export async function GET(req) {
+export async function POST(req) {
     await connectToDb();
-   
+
+    // middleware to check user logged in or is a admin
+    const limit = await req.json();
+    console.log(limit)
+
+    const isAuthUser = await AuthUser(req)
+
         try {
 
-            const AllCategory = await ProductCategory.find({})
+            const AllCategory = await ProductCategory.find({}).limit(limit)
             if (AllCategory) {
                 return NextResponse.json({
                     AllCategory,
@@ -33,6 +40,4 @@ export async function GET(req) {
             });
         }
 
- 
-
-}
+    }

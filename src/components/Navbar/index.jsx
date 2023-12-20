@@ -57,9 +57,9 @@ const Index = () => {
 
 
   return (
-    <div className="fixed top-0 bg-black  w-full z-20">
+    <div className="fixed top-0 bg-black  w-full z-20 ">
 
-      <div className='h-[20%] border-2 bg-white p-5 flex justify-between items-center '>
+      <div className='h-[20%]  bg-white p-5 flex justify-between items-center '>
 
         <div className="mobile-btn hidden md:block">
           {mobileNavShow ? <IoMdClose className=' cursor-pointer' onClick={() => setMobileNavShow(!mobileNavShow)} /> : <GiHamburgerMenu className=' cursor-pointer' onClick={() => setMobileNavShow(!mobileNavShow)} />}

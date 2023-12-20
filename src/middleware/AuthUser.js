@@ -9,7 +9,6 @@ const AuthUser = async (req) => {
         if (!access_token) {
             return false
         }
-
         const extractUser = jwt.verify(access_token.value, process.env.JWT_SECRET)
         if (extractUser) return extractUser
     } catch (error) {

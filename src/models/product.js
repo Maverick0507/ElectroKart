@@ -1,11 +1,7 @@
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    slug: {
+    productName: {
         type: String,
         required: true,
     },
@@ -17,31 +13,25 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    discountedPrice: {
+        type: Number,
+        required: true,
+    },
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "productCategory",
+        ref: "Category",
         required: true,
     },
     colors: [String],
+    photos: [String],
     quantity: {
         type: Number,
         required: true,
     },
-    photos: [
-        {
-            data: {
-                type: Buffer,
-                required: true,
-            },
-            contentType: {
-                type: String,
-                required: true,
-            },
-        },
-    ],
-    shipping: {
+    onSale: {
         type: Boolean,
     },
+  
 }, { timestamps: true });
 
 const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
