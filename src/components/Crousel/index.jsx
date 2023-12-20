@@ -85,6 +85,10 @@ const Index = () => {
 
     <div>
       <h2> Single Item</h2>
+      {subCategory.map((i)=>
+      (
+        <p>{i.name}</p>
+      ))}
       <div className="w-[100%] p-9">
       <Slider
       className=" w-[100%]"
