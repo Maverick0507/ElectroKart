@@ -73,9 +73,30 @@ const Index = () => {
 
   return (
 
-   <div>
-    popa
-   </div>
+    <div>
+      <Swiper
+        modules={[Pagination, Navigation]}
+        navigation={true}
+        loopFillGroupWithBlank={true}
+        slidesPerView={5}
+        slidesPerGroup={1}
+        loop={true}
+        className=" h-full  "
+      >
+        {subCategory.map((slide, i) => (
+          <SwiperSlide className=" h-full pl-5 pr-5 overflow-hidden" key={i}
+            onClick={() => route.push(`/products/${slide._id}`)}
+          >
+            <div className=" h-[90%] mx-3 cursor-pointer shadow-md shadow-slate-300 hover:scale-105 duration-400 ease-linear rounded-md">
+              <img
+                className=" h-[80%] w-full rounded-md "
+                src={slide.photos} alt=" product photo" />
+              <p className=" h-[20%] flex justify-center items-center font-semibold uppercase">{slide.name}</p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 
