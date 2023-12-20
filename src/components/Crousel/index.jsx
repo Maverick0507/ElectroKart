@@ -80,7 +80,6 @@ const Index = () => {
       spaceBetween={50}
       slidesPerView={4}
       navigation
-      loop={true}
       onSwiper={(swiper) => console.log(swiper)}
       onSlideChange={() => console.log('slide change')}
       className=" h-full  "
