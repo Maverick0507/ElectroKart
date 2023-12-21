@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
@@ -20,14 +20,14 @@ const Index = () => {
   const [allCategory, setAllCategory] = useState([]);
   const [allSubCategories, setAllSubCategories] = useState({});
 
-  const router = useRouter()
+  const router = useRouter();
 
   const getAllCategories = async () => {
     try {
       const { data } = await fetchCategory({ type: 'category', limit: '5' });
       if (data.success) {
         setAllCategory(data.AllCategory);
-      } else {
+       } else {
         console.log(data.message);
       }
     } catch (error) {
@@ -37,7 +37,11 @@ const Index = () => {
 
   const getAllSubCategories = async (categoryId) => {
     try {
-      const { data } = await fetchCategory({ type: 'subCategory', parentCategory: categoryId, limit: '7' });
+      const { data } = await fetchCategory({
+        type: 'subCategory',
+        parentCategory: categoryId,
+        limit: '7',
+      });
       if (data.success) {
         setAllSubCategories((prevSubCategories) => ({
           ...prevSubCategories,
@@ -62,8 +66,6 @@ const Index = () => {
     });
   }, [allCategory]);
 
-
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -75,12 +77,18 @@ const Index = () => {
     >
       {allCategory.map((category) => (
         <div key={category._id}>
-          <h1 className=' border-2  rounded-md p-4 text-lg font-semibold underline'>{category.name}</h1>
+          <h1 className=' border-2  rounded-md p-4 text-lg font-semibold underline'>
+            {category.name}
+          </h1>
           <ul className=' px-4 pb-3'>
             {allSubCategories[category._id]?.map((subCategory) => (
               <li
                 onClick={() => router.push(`/products/${subCategory._id}`)}
-                className={liStyle} key={subCategory._id}>{subCategory.name}</li>
+                className={liStyle}
+                key={subCategory._id}
+              >
+                {subCategory.name}
+              </li>
             ))}
           </ul>
         </div>

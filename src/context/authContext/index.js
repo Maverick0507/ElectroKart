@@ -1,7 +1,6 @@
 'use client';
 // AuthProvider.js
 import { token } from '@/services/auth/token';
-import { userAgent } from 'next/server';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext();

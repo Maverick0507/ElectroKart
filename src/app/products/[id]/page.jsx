@@ -13,7 +13,6 @@ const page = ({ params }) => {
     const [product, setProduct] = useState([])
     const [subCategory, setSubCategory] = useState({})
 
-    const [productLength, setProductLength] = useState(0)
 
     const router = useRouter()
 
@@ -36,8 +35,6 @@ const page = ({ params }) => {
             const { data } = await getAllProducts(subCategoryId)
             if (data.success) {
                 setProduct(data.AllProduct)
-                setProductLength(Math.ceil(data.AllProduct.length / 4))
-                console.log(productLength)
             }
             else {
                 alert(`Error fetching product`)
@@ -103,7 +100,8 @@ const page = ({ params }) => {
 
                     <div className={` grid grid-cols-3 h-full w-[78vw] gap-4 p-4`}>
                         {product.map((i) => (
-                            <ProductCard data={i} />
+                            <ProductCard 
+                            data={i} />
                         ))}
                     </div>
                 </div>

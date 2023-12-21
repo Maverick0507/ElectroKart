@@ -1,8 +1,10 @@
 'use client'
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { CiCirclePlus } from "react-icons/ci";
 
 const index = ({ data }) => {
+    const router = useRouter()
     const [imgAnimate, setImgAnimate] = useState(false)
     return (
         <div
@@ -10,7 +12,9 @@ const index = ({ data }) => {
             className=" w-[23vw] h-[60vh] border-2 mb-2 shadow-md rounded-md ">
 
             {/* product image */}
-            <div className="w-full h-[60%] border-2 relative">
+            <div 
+            onClick={()=>router.push(`/product/${data._id}`)}
+            className="w-full h-[60%] border-2 relative">
                 <img
                     onMouseEnter={() => setImgAnimate(true)}
                     onMouseLeave={() => setImgAnimate(false)}

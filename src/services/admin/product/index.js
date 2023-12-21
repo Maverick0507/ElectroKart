@@ -53,3 +53,19 @@ export const getAllProducts = async (subCategoryId) => {
     throw error;
   }
 }
+
+
+
+export const getSingleProduct = async (productId) => {
+  try {
+    const res = await axios.post('/api/admin/product/getSingleProduct', productId, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    return res
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
