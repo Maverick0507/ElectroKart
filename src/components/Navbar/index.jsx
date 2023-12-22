@@ -1,6 +1,7 @@
 'use client';
 import DropdownMenu from '@/components/DropMenu/index';
 import { motion } from 'framer-motion';
+import { fetchCategory } from '@/services/admin/category';
 import React, { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation'
 import SearchDropMenu from '@/components/SearchDropMenu'
@@ -16,6 +17,10 @@ const Index = () => {
   const [dropItem, setDropItem] = useState(false);
   const [dropSearchBar, setDropSearchBar] = useState(false);
   const [mobileNavShow, setMobileNavShow] = useState(false);
+
+  const [allCategory, setAllCategory] = useState([]);
+  const [allSubCategories, setAllSubCategories] = useState({});
+
 
   const router = useRouter()
   const path = usePathname()
@@ -45,6 +50,46 @@ const Index = () => {
     };
   }, [dropItem]);
 
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch categories
+        const { data: categoryData } = await fetchCategory({ type: 'category', limit: '5' });
+        if (categoryData.success) {
+          setAllCategory(categoryData.AllCategory);
+
+          // Fetch subcategories for each category
+          const subCategoryPromises = categoryData.AllCategory.map(async (category) => {
+            const { data: subCategoryData } = await fetchCategory({
+              type: 'subCategory',
+              parentCategory: category._id,
+              limit: '7',
+            });
+
+            if (subCategoryData.success) {
+              setAllSubCategories((prevSubCategories) => ({
+                ...prevSubCategories,
+                [category._id]: subCategoryData.AllCategory,
+              }));
+            } else {
+              console.log(subCategoryData.message);
+            }
+          });
+
+          // Wait for all subcategory requests to complete
+          await Promise.all(subCategoryPromises);
+        } else {
+          console.log(categoryData.message);
+        }
+      } catch (error) {
+        console.error('Error getting categories and subcategories:', error);
+      }
+    };
+
+    fetchData(); // Call the fetchData function
+  }, []); 
 
 
 
@@ -127,7 +172,8 @@ const Index = () => {
       </div>
 
       {dropItem ? (
-        <DropdownMenu className='transition-opacity duration-1000 opacity-100 ' />
+        <DropdownMenu allCategory={allCategory} allSubCategories={allSubCategories}
+        className='transition-opacity duration-1000 opacity-100 ' />
       ) : null}
 
       <div>
