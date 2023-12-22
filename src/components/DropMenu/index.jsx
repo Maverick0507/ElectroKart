@@ -22,49 +22,45 @@ const Index = () => {
 
   const router = useRouter();
 
-  const getAllCategories = async () => {
-    try {
-      const { data } = await fetchCategory({ type: 'category', limit: '5' });
-      if (data.success) {
-        setAllCategory(data.AllCategory);
-       } else {
-        console.log(data.message);
-      }
-    } catch (error) {
-      console.error('Error getting categories:', error);
-    }
-  };
-
-  const getAllSubCategories = async (categoryId) => {
-    try {
-      const { data } = await fetchCategory({
-        type: 'subCategory',
-        parentCategory: categoryId,
-        limit: '7',
-      });
-      if (data.success) {
-        setAllSubCategories((prevSubCategories) => ({
-          ...prevSubCategories,
-          [categoryId]: data.AllCategory,
-        }));
-      } else {
-        console.log(data.message);
-      }
-    } catch (error) {
-      console.error('Error getting subcategories:', error);
-    }
-  };
-
   useEffect(() => {
-    getAllCategories();
-  }, []);
+    const fetchData = async () => {
+      try {
+        // Fetch categories
+        const { data: categoryData } = await fetchCategory({ type: 'category', limit: '5' });
+        if (categoryData.success) {
+          setAllCategory(categoryData.AllCategory);
 
-  useEffect(() => {
-    // Fetch subcategories for all categories during the initial rendering
-    allCategory.forEach((category) => {
-      getAllSubCategories(category._id);
-    });
-  }, [allCategory]);
+          // Fetch subcategories for each category
+          const subCategoryPromises = categoryData.AllCategory.map(async (category) => {
+            const { data: subCategoryData } = await fetchCategory({
+              type: 'subCategory',
+              parentCategory: category._id,
+              limit: '7',
+            });
+
+            if (subCategoryData.success) {
+              setAllSubCategories((prevSubCategories) => ({
+                ...prevSubCategories,
+                [category._id]: subCategoryData.AllCategory,
+              }));
+            } else {
+              console.log(subCategoryData.message);
+            }
+          });
+
+          // Wait for all subcategory requests to complete
+          await Promise.all(subCategoryPromises);
+        } else {
+          console.log(categoryData.message);
+        }
+      } catch (error) {
+        console.error('Error getting categories and subcategories:', error);
+      }
+    };
+
+    fetchData(); // Call the fetchData function
+  }, []); // Empty dependency array ensures this effect runs only once on mount
+
 
   return (
     <motion.div
