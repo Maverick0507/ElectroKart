@@ -14,7 +14,7 @@ const index = ({ data }) => {
             {/* product image */}
             <div 
             onClick={()=>router.push(`/product/${data._id}`)}
-            className="w-full h-[60%] border-2 relative">
+            className="w-full h-[60%] border-2 relative ">
                 <img
                     onMouseEnter={() => setImgAnimate(true)}
                     onMouseLeave={() => setImgAnimate(false)}
