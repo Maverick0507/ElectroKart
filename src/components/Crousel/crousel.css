@@ -1,0 +1,18 @@
+.slick-arrow 
+{
+    background: black !important;
+    color: white !important;
+    height: 3rem !important;
+    width: 3rem !important;
+    z-index: 10 !important;
+    border-radius: 50% !important;
+    opacity: 0.7 !important;
+    transition: 0.2s ease-in-out;
+
+}
+.slick-arrow:hover 
+{
+    background: black !important;
+    opacity: 1 !important;
+    transition: 0.2s ease-in-out;
+}

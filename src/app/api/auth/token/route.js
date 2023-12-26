@@ -1,5 +1,4 @@
 
-import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers'
 
@@ -20,7 +19,7 @@ export async function GET(req) {
         }
         return NextResponse.json({
             success: false,
-            message: "cookie not found successful",
+            message: "cookie not found ",
             token: null,
         });
     } catch (error) {

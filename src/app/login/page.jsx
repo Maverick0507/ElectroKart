@@ -4,9 +4,14 @@ import { Tabs, Tab, Card, CardBody, Input, Button, Spinner } from '@nextui-org/r
 import { signin } from '@/services/auth/signIn';
 import { login } from '@/services/auth/logIn';
 import { useAuth } from '@/context/authContext';
+import { useCart } from '@/context/cartContext';
 import { useRouter } from 'next/navigation';
 
+
 const Page = () => {
+
+
+
     const initialSignInFormData = {
         email: '',
         password: '',
@@ -19,6 +24,7 @@ const Page = () => {
     };
 
     const [auth, setAuth] = useAuth()
+    const [cart,setCart]  = useCart()
     const [loading, setLoading] = useState(false)
 
     const route = useRouter()

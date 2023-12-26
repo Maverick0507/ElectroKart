@@ -3,18 +3,26 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { CiCirclePlus } from "react-icons/ci";
 
-const index = ({ data }) => {
+const index = ({ data, page }) => {
     const router = useRouter()
     const [imgAnimate, setImgAnimate] = useState(false)
+
+    const productPageStyle = 'w-[100%] h-[60vh] border-2 mb-2 shadow-md rounded-md '
+    const homePageStyle = 'w-[80%] h-[60vh] border-2 mb-2 shadow-md rounded-md  '
+
+    const productPageImageStyle = 'w-full h-[60%] border-2 relative'
+    const homePageImageStyle = 'w-full h-[55%] border-2 relative'
+
+
     return (
         <div
             key={data._id}
-            className=" w-[23vw] h-[60vh] border-2 mb-2 shadow-md rounded-md ">
+            className={page === 'homePage' ? homePageStyle : productPageStyle}>
 
             {/* product image */}
-            <div 
-            onClick={()=>router.push(`/product/${data._id}`)}
-            className="w-full h-[60%] border-2 relative ">
+            <div
+                onClick={() => router.push(`/product/${data._id}`)}
+                className={`${page==='homePage' ? homePageImageStyle : productPageImageStyle}`}>
                 <img
                     onMouseEnter={() => setImgAnimate(true)}
                     onMouseLeave={() => setImgAnimate(false)}
@@ -27,8 +35,8 @@ const index = ({ data }) => {
             </div>
             {/* product data */}
             <div className="w-full h-[40%] p-4">
-                <p className=' font-bold text-2xl mb-2'>{data.productName}</p>
-                <p className=' font-bold text-xl mb-2'>From {data.price}</p>
+                <p className=' font-bold text-xl mb-2'>{data.productName}</p>
+                <p className=' font-semibold text-lg mb-2'>From {data.price}</p>
                 <div className='flex gap-3'>
                     {data.colors.map((color, index) => (
                         <div

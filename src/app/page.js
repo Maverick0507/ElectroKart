@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image"
 import { Button } from "@nextui-org/react"
 import Crousel from "@/components/Crousel/index"
@@ -6,10 +8,91 @@ import phone from '../../public/image/phone.jpeg'
 import headphone from '../../public/image/headphone.jpeg'
 import earbud from '../../public/image/earbud.jpeg'
 
+import React, { useEffect, useState } from "react";
+import { fetchCategory } from "@/services/category";
+import { getLimitedProduct } from '@/services/product/'
+import Slider from "react-slick";
+import 'swiper/swiper-bundle.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { useRouter } from "next/navigation";
 
 
 
 export default function Home() {
+
+  const [category, setCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
+  const [parentCategoryIDs, setParentCategoryIDs] = useState([]);
+
+  const [product, setProduct] = useState([])
+
+  const getAllProduct = async () => {
+    try {
+      const { data } = await getLimitedProduct()
+      if (data.success) {
+        setProduct(data.Product)
+      }
+      else {
+        console.log('Error getting product')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getAllCategory = async () => {
+    try {
+      const { data } = await fetchCategory({ type: "category", limit: "4" });
+
+      if (data.success) {
+        setCategory(data.AllCategory);
+      } else {
+        console.error("Error fetching categories");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const getSubCategories = async () => {
+    try {
+      setSubCategory([]);
+
+
+      const { data } = await fetchCategory({
+        type: "subcategory",
+        parentCategory: "657c3153609a340d2d8c48dc",
+        limit: "8",
+      });
+
+      if (data.success) {
+        setSubCategory(data.AllCategory)
+      } else {
+        console.error("Error fetching subcategories");
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllCategory();
+    getAllProduct()
+  }, []);
+
+  useEffect(() => {
+    setParentCategoryIDs(category.map((i) => i._id));
+  }, [category]);
+
+  useEffect(() => {
+    if (category.length === 4) {
+      getSubCategories();
+    }
+  }, [category]);
 
   return (
     <main className="flex min-h-screen flex-col pt-[7rem]  md:pt-[4.5rem] mt-2 mb-5">
@@ -57,9 +140,15 @@ export default function Home() {
 
       </div>
 
-      {/* crousel */}
+      {/* div 2 crousel */}
       <div className=" w-full h-[40%] mt-10">
-        <Crousel />
+        <Crousel data={subCategory} />
+      </div>
+
+      {/* div 3  */}
+      <div className=" w-full h-[20%] mt-16 ">
+        <h1 className=" text-center text-5xl font-bold uppercase mb-[4rem]">Featured Collection</h1>
+        <Crousel data={product} type={'product'} />
       </div>
     </main>
   )

@@ -1,7 +1,7 @@
 'use client';
 import DropdownMenu from '@/components/DropMenu/index';
 import { motion } from 'framer-motion';
-import { fetchCategory } from '@/services/admin/category';
+import { fetchCategory } from '@/services/category';
 import React, { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation'
 import SearchDropMenu from '@/components/SearchDropMenu'
@@ -12,6 +12,9 @@ import { IoCartOutline } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
+import { Badge } from "@nextui-org/react";
+import { useCart } from '@/context/cartContext'
+
 
 const Index = () => {
   const [dropItem, setDropItem] = useState(false);
@@ -21,6 +24,8 @@ const Index = () => {
   const [allCategory, setAllCategory] = useState([]);
   const [allSubCategories, setAllSubCategories] = useState({});
 
+  const [cart, setCart] = useCart()
+
 
   const router = useRouter()
   const path = usePathname()
@@ -28,9 +33,9 @@ const Index = () => {
 
   const [auth] = useAuth();
 
- 
 
-  
+
+
   const show = () => {
     setDropItem(!dropItem);
   };
@@ -89,7 +94,7 @@ const Index = () => {
     };
 
     fetchData(); // Call the fetchData function
-  }, []); 
+  }, []);
 
 
 
@@ -149,7 +154,11 @@ const Index = () => {
           <ul className='flex justify-between items-center gap-4'>
 
             <li onClick={() => setDropSearchBar(!dropSearchBar)} className={`${liStyle2}`}><CgSearch /></li>
-            <li className={`${liStyle2}`}><IoCartOutline /></li>
+            <li onClick={() => router.push('/cart')} className={`${liStyle2}`}>
+              <Badge content={cart.length} color="default"
+              >
+                <IoCartOutline />
+              </Badge></li>
             <li
               onClick={() => {
                 if (auth?.user) {
@@ -173,7 +182,7 @@ const Index = () => {
 
       {dropItem ? (
         <DropdownMenu allCategory={allCategory} allSubCategories={allSubCategories}
-        className='transition-opacity duration-1000 opacity-100 ' />
+          className='transition-opacity duration-1000 opacity-100 ' />
       ) : null}
 
       <div>

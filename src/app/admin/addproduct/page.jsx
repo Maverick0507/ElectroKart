@@ -4,10 +4,10 @@ import { initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
-import {  fetchCategory } from '@/services/admin/category';
+import {  fetchCategory } from '@/services/category';
 import { firebaseConfig } from '@/firebase';
 import { CircularProgress } from "@nextui-org/react";
-import { addProduct } from '@/services/admin/product';
+import { addProduct } from '@/services/product';
 
 const Page = () => {
   const inputStyle = `

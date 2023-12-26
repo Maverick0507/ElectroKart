@@ -1,5 +1,5 @@
 'use client';
-import { addCategory, addSubCategory, deleteCategory, fetchCategory, updatSubCategory } from '@/services/admin/category';
+import { addCategory, addSubCategory, deleteCategory, fetchCategory, updatSubCategory } from '@/services/category';
 import { Button } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 

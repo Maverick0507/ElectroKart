@@ -41,7 +41,7 @@ export const addProduct = async ({
 
 export const getAllProducts = async (subCategoryId) => {
   try {
-    const res = await axios.post('/api/admin/product/getAllProduct', subCategoryId, {
+    const res = await axios.post('/api/user/getAllProduct', subCategoryId, {
 
       headers: {
         'Content-Type': 'application/json',
@@ -58,11 +58,22 @@ export const getAllProducts = async (subCategoryId) => {
 
 export const getSingleProduct = async (productId) => {
   try {
-    const res = await axios.post('/api/admin/product/getSingleProduct', productId, {
+    const res = await axios.post('/api/user/getSingleProduct', productId, {
       headers: {
         'Content-Type': 'application/json',
       }
     })
+    return res
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+
+export const getLimitedProduct = async () => {
+  try {
+    const res = await axios.get('/api/user/getLimitedProduct')
     return res
   } catch (error) {
     console.error("Error:", error);
