@@ -6,6 +6,7 @@ import Crousel from "@/components/Crousel/index"
 import laptop from '../../public/image/laptop.jpeg'
 import phone from '../../public/image/phone.jpeg'
 import headphone from '../../public/image/headphone.jpeg'
+import headphone2 from '../../public/image/headphone2.jpeg'
 import earbud from '../../public/image/earbud.jpeg'
 
 import React, { useEffect, useState } from "react";
@@ -23,8 +24,11 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
 
+  const router = useRouter()
+
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  console.log(subCategory)
   const [parentCategoryIDs, setParentCategoryIDs] = useState([]);
 
   const [product, setProduct] = useState([])
@@ -78,6 +82,8 @@ export default function Home() {
       console.error("Error:", error);
     }
   };
+
+
 
   useEffect(() => {
     getAllCategory();
@@ -150,7 +156,64 @@ export default function Home() {
         <h1 className=" text-center text-5xl font-bold uppercase mb-[4rem]">Featured Collection</h1>
         <Crousel data={product} type={'product'} />
       </div>
+
+      {/* div 4 */}
+      <div className=" w-full h-[40%] mt-16 flex justify-center items-center gap-10 rounded-md p-8">
+
+        <div onClick={()=>router.push('/products/657eea56923cb11a492569df')}
+         className="w-[30%] h-full relative overflow-hidden">
+          <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
+            src={subCategory[0]?.photos} alt="category iamge" />
+          <div className=" absolute top-10 left-8">
+            <p className=" text-4xl font-bold  tracking-wider">{subCategory[0]?.name}</p>
+            <p className=" pt-6 text-xl font-semibold ">The best you can buy</p>
+            <p className=" pt-2 underline cursor-pointer">Buy Now</p>
+          </div>
+        </div>
+
+        <div onClick={()=>router.push('products/65832f8f668636f8a82e81a0')}
+         className="w-[30%] h-full relative overflow-hidden">
+          <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
+            src={subCategory[2]?.photos} alt="category iamge" />
+          <div className=" absolute top-10 left-8">
+            <p className=" text-4xl font-bold  tracking-wider">{subCategory[2]?.name}</p>
+            <p className=" pt-6 text-xl font-semibold ">The best you can buy</p>
+            <p className=" pt-2 underline cursor-pointer">Buy Now</p>
+          </div>
+        </div>
+
+        <div  onClick={()=>router.push('products/658d686aeb67375724681efc')}
+        className="w-[30%] h-full relative overflow-hidden">
+          <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
+            src={subCategory[4]?.photos} alt="category iamge" />
+          <div className=" absolute top-10 left-8">
+            <p className=" text-4xl font-bold  tracking-wider">{subCategory[4]?.name}</p>
+            <p className=" pt-6 text-xl font-semibold ">The best you can buy</p>
+            <p className=" pt-2 underline cursor-pointer">Buy Now</p>
+          </div>
+        </div>
+
+      </div>
+
+      {/* div 5 */}
+      <div className="flex h-[80vh] w-full mt-9 bg-white p-6 shadow-md shadow-white">
+        <div className=" w-[50%] h-full ">
+          <Image className=" w-full h-full object-contain"
+            src={headphone2} alt="product image" />
+        </div>
+        <div className=" w-[50%] h-full  p-10">
+          <h1 className=" text-5xl font-bold tracking-wider">Unbelievable Savings Await You!</h1>
+          <p className=" pt-9">
+            Pair youself with the best trend ongoing and make yourselg update with rocking headphones, or even provide a review.
+          </p>
+          <Button onClick={()=>router.push('products/657eeeff923cb11a492569e9')}
+            className=" rounded-none bg-black text-white mt-10 ">
+            Shop now
+          </Button>
+        </div>
+      </div>
     </main>
+
   )
 }
 

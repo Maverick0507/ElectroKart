@@ -24,7 +24,7 @@ const Index = ({ data, type }) => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: type==='product' ? 4: 4,
+    slidesToShow: type==='product' ? 4: 5,
     slidesToScroll: 1
   };
   return (
