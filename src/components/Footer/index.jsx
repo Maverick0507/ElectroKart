@@ -5,7 +5,7 @@ export default function Component() {
   return (
     <>
       <footer className="bg-gray-800 text-white py-12  md:py-16 px-6 md:px-8 lg:px-12 space-y-12 md:space-y-16">
-        <div className="grid gap-8 md:gap-12  grid-cols-4">
+        <div className="grid gap-8 md:gap-12  grid-cols-4 sm:grid-cols-2 xs:grid-cols-1">
           <div className="space-y-6">
             <h2 className="text-lg md:text-xl font-bold">About Us</h2>
             <p className="text-sm md:text-base">

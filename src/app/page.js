@@ -106,9 +106,9 @@ export default function Home() {
       {/* start */}
 
       {/*div 1 */}
-      <div className=" flex justify-between items-center gap-4">
+      <div className=" flex justify-between items-center gap-4 md:gap-0 sm:flex-col sm:gap-0 sm:mb-8">
 
-        <div className=" w-[50vw] h-[80vh]  relative">
+        <div className=" w-[50vw] h-[80vh]  relative lg:w-[30vw] lg:h-[40vh] md:w-[34vw] sm:w-full">
           <Image
             className=" object-cover w-full h-full "
             src={laptop} />
@@ -125,20 +125,20 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-[30vw] h-[80vh] cursor-pointer ">
+        <div className="w-[30vw] h-[80vh] cursor-pointer lg:h-[40vh] md:w-[33vw] sm:w-full sm:text-center">
           <Image src={phone} className="h-[70%]" />
           <h1 className="font-bold p-3 text-xl">Best Smartphone</h1>
           <h1 className="font-bold p-3 text-xl">In Your Range !</h1>
         </div>
 
 
-        <div className="w-[20vw] h-[80vh] flex flex-col  gap-[4vh] ">
+        <div className="w-[20vw] h-[80vh] flex flex-col  gap-[4vh] lg:w-[30vw] lg:h-[40vh] md:w-[33vw] md:gap-0 sm:w-full sm:flex-row sm:h-[40vh] sm:gap-0 xs:flex-col xs:h-auto">
 
-          <div className="  h-[38vh] w-full relative cursor-pointer rou">
+          <div className="  h-[38vh] w-full relative cursor-pointer lg:h-[18vh] md:h-[20vh] sm:h-[100%]">
             <Image src={headphone} className=" object-cover h-full" />
             <Button className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Play now</Button>
           </div>
-          <div className="  h-[38vh] w-full relative cursor-pointer">
+          <div className="  h-[38vh] w-full relative cursor-pointer lg:h-[18vh] md:h-[20vh] sm:h-[100%]">
             <Image src={earbud} className=" object-cover w-full h-full" />
             <Button className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Explore Our New Earbuds</Button>
           </div>
@@ -147,22 +147,22 @@ export default function Home() {
       </div>
 
       {/* div 2 crousel */}
-      <div className=" w-full h-[40%] mt-10">
+      <div className=" w-full h-[40%] mt-10 sm:mt-0 p-5">
         <Crousel data={subCategory} />
       </div>
 
       {/* div 3  */}
-      <div className=" w-full h-[20%] mt-16 ">
-        <h1 className=" text-center text-5xl font-bold uppercase mb-[4rem]">Featured Collection</h1>
+      <div className=" w-full  mt-16 p-5">
+        <h1 className=" text-center text-5xl font-bold uppercase mb-[4rem] xs:font-bold xs:text-3xl">Featured Collection</h1>
         <Crousel data={product} type={'product'} />
       </div>
 
       {/* div 4 */}
-      <div className=" w-full h-[40%] mt-16 flex justify-center items-center gap-10 rounded-md p-8">
+      <div className=" w-full h-[40%] mt-16 flex  justify-center items-center gap-10 rounded-md p-8 md:h-auto md:flex-wrap sm:flex-col sm:w-full xs:w-[100vw] xs:flex-row xs:flex-nowrap xs:overflow-x-scroll xs:justify-normal">
 
         <div onClick={() => router.push('/products/657eea56923cb11a492569df')}
-          className="w-[30%] h-full relative overflow-hidden">
-          <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
+          className="w-[30%] h-full relative overflow-hidden md:w-[40vw] sm:w-full sm:h-[40vh]  xs:overflow-visible xs:flex-none xs:[100vw]">
+          <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out "
             src={subCategory[0]?.photos} alt="category iamge" />
           <div className=" absolute top-10 left-8">
             <p className=" text-4xl font-bold  tracking-wider">{subCategory[0]?.name}</p>
@@ -172,7 +172,7 @@ export default function Home() {
         </div>
 
         <div onClick={() => router.push('products/65832f8f668636f8a82e81a0')}
-          className="w-[30%] h-full relative overflow-hidden">
+          className="w-[30%] h-full relative overflow-hidden md:w-[40vw] sm:w-full sm:h-[40vh]  xs:overflow-visible xs:flex-none xs:w-[100vw]">
           <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
             src={subCategory[2]?.photos} alt="category iamge" />
           <div className=" absolute top-10 left-8">
@@ -182,8 +182,11 @@ export default function Home() {
           </div>
         </div>
 
+        
+
+
         <div onClick={() => router.push('products/658d686aeb67375724681efc')}
-          className="w-[30%] h-full relative overflow-hidden">
+          className="w-[30%] h-full relative overflow-hidden md:w-[40vw] sm:w-full sm:h-[40vh]  xs:overflow-visible xs:flex-none xs:w-[100vw]">
           <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
             src={subCategory[4]?.photos} alt="category iamge" />
           <div className=" absolute top-10 left-8">
@@ -196,12 +199,12 @@ export default function Home() {
       </div>
 
       {/* div 5 */}
-      <div className="flex h-[80vh] w-full mt-9 bg-white p-6 shadow-md shadow-white">
-        <div className=" w-[50%] h-full ">
-          <Image className=" w-full h-full object-contain"
+      <div className="flex h-[80vh] w-full mt-9 bg-white p-6 shadow-md shadow-white lg:h-[50vh] sm:flex-col sm:h-auto">
+        <div className=" w-[50%] h-full sm:w-full sm:h-[40vh]">
+          <Image className=" w-full h-full object-contain lg:object-fill"
             src={headphone2} alt="product image" />
         </div>
-        <div className=" w-[50%] h-full  p-10">
+        <div className=" w-[50%] h-full  p-10 sm:w-full">
           <h1 className=" text-5xl font-bold tracking-wider">Unbelievable Savings Await You!</h1>
           <p className=" pt-9">
             Pair youself with the best trend ongoing and make yourselg update with rocking headphones, or even provide a review.
@@ -214,13 +217,13 @@ export default function Home() {
       </div>
 
       {/* div 6 banner */}
-      <div className=" h-[20vh] w-full flex mt-7">
-        <div className=" w-[50%]  p-4 px-10">
+      <div className=" h-[20vh] w-full flex mt-7 sm:flex-col">
+        <div className=" w-[50%]  p-4 px-10  sm:flex-col sm:justify-center sm:items-center sm:w-full">
           <h1 className=" font-bold text-3xl">Subscribe to our emails</h1>
           <p >Be the first to know about new collections and exclusive offers.</p>
         </div>
 
-        <div className=" h-full w-[50%]  flex justify-center items-center">
+        <div className=" h-full w-[50%]  flex justify-center items-center sm:w-full">
           <div className=" flex items-center justify-between p-4 border-2 rounded-md border-black bg-white w-[25rem] h-[3rem]">
             <input type="text" placeholder=" Email" />
             <p className=" font-bold p-2">Subscribe</p>

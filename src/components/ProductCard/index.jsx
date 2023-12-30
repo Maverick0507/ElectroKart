@@ -8,10 +8,10 @@ const index = ({ data, page }) => {
     const [imgAnimate, setImgAnimate] = useState(false)
 
     const productPageStyle = 'w-[100%] h-[60vh] border-2 mb-2 shadow-md rounded-md '
-    const homePageStyle = 'w-[80%] h-[60vh] border-2 mb-2 shadow-md rounded-md  '
+    const homePageStyle = 'w-[80%] h-[60vh] border-2 mb-2 shadow-md rounded-md lg:h-[30vh] xs:mx-auto'
 
     const productPageImageStyle = 'w-full h-[60%] border-2 relative'
-    const homePageImageStyle = 'w-full h-[55%] border-2 relative'
+    const homePageImageStyle = 'w-full h-[55%]  border-2  relative'
 
 
     return (
@@ -22,7 +22,7 @@ const index = ({ data, page }) => {
             {/* product image */}
             <div
                 onClick={() => router.push(`/product/${data._id}`)}
-                className={`${page==='homePage' ? homePageImageStyle : productPageImageStyle}`}>
+                className={`${page==='homePage' ? homePageImageStyle : productPageImageStyle} `}>
                 <img
                     onMouseEnter={() => setImgAnimate(true)}
                     onMouseLeave={() => setImgAnimate(false)}
@@ -34,7 +34,7 @@ const index = ({ data, page }) => {
                 </div>
             </div>
             {/* product data */}
-            <div className="w-full h-[40%] p-4">
+            <div className="w-full h-[40%] p-4 lg:h-[10vh] ">
                 <p className=' font-bold text-xl mb-2'>{data.productName}</p>
                 <p className=' font-semibold text-lg mb-2'>From {data.price}</p>
                 <div className='flex gap-3'>
