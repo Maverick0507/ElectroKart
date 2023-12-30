@@ -19,7 +19,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useRouter } from "next/navigation";
-
+import Footer from '@/components/Footer/index'
 
 
 export default function Home() {
@@ -101,7 +101,7 @@ export default function Home() {
   }, [category]);
 
   return (
-    <main className="flex min-h-screen flex-col pt-[7rem]  md:pt-[4.5rem] mt-2 mb-5">
+    <main className="flex min-h-screen flex-col pt-[7rem]  md:pt-[4.5rem] mt-2 ">
 
       {/* start */}
 
@@ -160,8 +160,8 @@ export default function Home() {
       {/* div 4 */}
       <div className=" w-full h-[40%] mt-16 flex justify-center items-center gap-10 rounded-md p-8">
 
-        <div onClick={()=>router.push('/products/657eea56923cb11a492569df')}
-         className="w-[30%] h-full relative overflow-hidden">
+        <div onClick={() => router.push('/products/657eea56923cb11a492569df')}
+          className="w-[30%] h-full relative overflow-hidden">
           <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
             src={subCategory[0]?.photos} alt="category iamge" />
           <div className=" absolute top-10 left-8">
@@ -171,8 +171,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div onClick={()=>router.push('products/65832f8f668636f8a82e81a0')}
-         className="w-[30%] h-full relative overflow-hidden">
+        <div onClick={() => router.push('products/65832f8f668636f8a82e81a0')}
+          className="w-[30%] h-full relative overflow-hidden">
           <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
             src={subCategory[2]?.photos} alt="category iamge" />
           <div className=" absolute top-10 left-8">
@@ -182,8 +182,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div  onClick={()=>router.push('products/658d686aeb67375724681efc')}
-        className="w-[30%] h-full relative overflow-hidden">
+        <div onClick={() => router.push('products/658d686aeb67375724681efc')}
+          className="w-[30%] h-full relative overflow-hidden">
           <img className=" w-full h-full object-cover hover:scale-105 duration-200 ease-in-out"
             src={subCategory[4]?.photos} alt="category iamge" />
           <div className=" absolute top-10 left-8">
@@ -206,12 +206,32 @@ export default function Home() {
           <p className=" pt-9">
             Pair youself with the best trend ongoing and make yourselg update with rocking headphones, or even provide a review.
           </p>
-          <Button onClick={()=>router.push('products/657eeeff923cb11a492569e9')}
+          <Button onClick={() => router.push('products/657eeeff923cb11a492569e9')}
             className=" rounded-none bg-black text-white mt-10 ">
             Shop now
           </Button>
         </div>
       </div>
+
+      {/* div 6 banner */}
+      <div className=" h-[20vh] w-full flex mt-7">
+        <div className=" w-[50%]  p-4 px-10">
+          <h1 className=" font-bold text-3xl">Subscribe to our emails</h1>
+          <p >Be the first to know about new collections and exclusive offers.</p>
+        </div>
+
+        <div className=" h-full w-[50%]  flex justify-center items-center">
+          <div className=" flex items-center justify-between p-4 border-2 rounded-md border-black bg-white w-[25rem] h-[3rem]">
+            <input type="text" placeholder=" Email" />
+            <p className=" font-bold p-2">Subscribe</p>
+          </div>
+        </div>
+      </div>
+
+      {/* div 6 footer */}
+     <div className=" mt-10">
+      <Footer/>
+     </div>
     </main>
 
   )

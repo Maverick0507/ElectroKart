@@ -138,10 +138,10 @@ const Index = () => {
               Store
               <IoIosArrowDown />
             </li>
-            <li className={liStyle}>
+            <li onClick={()=>router.push('/products/657eea56923cb11a492569df')} className={liStyle}>
               Computers
             </li>
-            <li className={liStyle}>
+            <li onClick={()=>router.push('/products/657eef2f923cb11a492569f5')} className={liStyle}>
               Phones
             </li>
             <li className={liStyle}>
