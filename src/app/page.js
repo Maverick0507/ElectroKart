@@ -12,7 +12,6 @@ import earbud from '../../public/image/earbud.jpeg'
 import React, { useEffect, useState } from "react";
 import { fetchCategory } from "@/services/category";
 import { getLimitedProduct } from '@/services/product/'
-import Slider from "react-slick";
 import 'swiper/swiper-bundle.css';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -108,7 +107,7 @@ export default function Home() {
       {/*div 1 */}
       <div className=" flex justify-between items-center gap-4 md:gap-0 sm:flex-col sm:gap-0 sm:mb-8">
 
-        <div className=" w-[50vw] h-[80vh]  relative lg:w-[30vw] lg:h-[40vh] md:w-[34vw] sm:w-full">
+        <div className=" w-[50vw] h-[80vh]  relative lg:w-[30vw] lg:h-[40vh] md:w-[34vw] sm:w-full xs:h-[60vh]">
           <Image
             className=" object-cover w-full h-full "
             src={laptop} />
@@ -125,7 +124,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-[30vw] h-[80vh] cursor-pointer lg:h-[40vh] md:w-[33vw] sm:w-full sm:text-center">
+        <div className="w-[30vw] h-[80vh] cursor-pointer lg:h-[40vh] md:w-[33vw] sm:w-full sm:text-center xs:h-[60vh]">
           <Image src={phone} className="h-[70%]" />
           <h1 className="font-bold p-3 text-xl">Best Smartphone</h1>
           <h1 className="font-bold p-3 text-xl">In Your Range !</h1>
@@ -205,7 +204,7 @@ export default function Home() {
             src={headphone2} alt="product image" />
         </div>
         <div className=" w-[50%] h-full  p-10 sm:w-full">
-          <h1 className=" text-5xl font-bold tracking-wider">Unbelievable Savings Await You!</h1>
+          <h1 className=" text-5xl font-bold tracking-wider xs:text-4xl">Unbelievable Savings Await You!</h1>
           <p className=" pt-9">
             Pair youself with the best trend ongoing and make yourselg update with rocking headphones, or even provide a review.
           </p>
@@ -217,7 +216,7 @@ export default function Home() {
       </div>
 
       {/* div 6 banner */}
-      <div className=" h-[20vh] w-full flex mt-7 sm:flex-col">
+      <div className=" h-[20vh]  w-full flex mt-7 sm:flex-col xs:h-[30vh]">
         <div className=" w-[50%]  p-4 px-10  sm:flex-col sm:justify-center sm:items-center sm:w-full">
           <h1 className=" font-bold text-3xl">Subscribe to our emails</h1>
           <p >Be the first to know about new collections and exclusive offers.</p>
@@ -225,7 +224,7 @@ export default function Home() {
 
         <div className=" h-full w-[50%]  flex justify-center items-center sm:w-full">
           <div className=" flex items-center justify-between p-4 border-2 rounded-md border-black bg-white w-[25rem] h-[3rem]">
-            <input type="text" placeholder=" Email" />
+            <input className=" outline-none" type="text" placeholder=" Email" />
             <p className=" font-bold p-2">Subscribe</p>
           </div>
         </div>
