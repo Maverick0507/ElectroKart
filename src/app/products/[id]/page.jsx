@@ -16,6 +16,10 @@ const page = ({ params }) => {
 
     const [loading, setLoading] = useState(false)
 
+    const [clicked1, setClicked1] = useState(false)
+    const [clicked2, setClicked2] = useState(false)
+
+
 
     const router = useRouter()
 
@@ -60,12 +64,12 @@ const page = ({ params }) => {
         <div className='pt-[6rem] h-full'>
 
             {loading ?
-                <div className="flex justify-center items-center h-[80vh]">
+                <div className="flex justify-center items-center h-[80vh] ">
                     <CircularProgress label="Loading..." />
                 </div>
                 :
                 <>
-                    <div className=" border-2 w-full h-[20vh] my-10 p-5 shadow-md bg-blue-100">
+                    <div className=" border-2 w-full h-[20vh] my-10 p-5 shadow-md bg-blue-100 lg:h-[10vh] ">
                         <p className=' font-bold text-xl'>{subCategory.name}</p>
 
                         <p className='font-semibold cursor-pointer'><span
@@ -73,15 +77,15 @@ const page = ({ params }) => {
                                 onClick={() => router.push(`/products/${subCategoryId}`)}>{subCategory.name}</span></p>
                     </div>
 
-                    <div className=" w-full h-[50vh] border-2 p-5 flex">
+                    <div className=" w-full h-[50vh] border-2 p-5 flex lg:h-[30vh] sm:flex-col sm:h-auto ">
 
-                        <div className=" h-full w-[60%] flex justify-center items-center flex-col">
-                            <h1 className=' text-5xl text-gray-400 font-semibold'>Limited time offer</h1>
+                        <div className=" h-full w-[60%] flex justify-center items-center flex-col lg:w-[50%] sm:w-full">
+                            <h1 className=' text-5xl text-gray-400 font-semibold sm:text-3xl'>Limited time offer</h1>
                             <h2
-                                className=' text-4xl text-black font-semibold'
+                                className=' text-4xl text-black font-semibold sm:text-2xl'
                             >Grab Awesome Deals</h2>
                         </div>
-                        <div className=" h-full w-[40%] border-2">
+                        <div className=" h-full w-[40%] border-2 lg:w-[50%] sm:w-full sm:h-[20vh] sm:mt-5">
                             <img
                                 className=' w-full h-full object-fit'
                                 src={subCategory.photos} alt="subCategory image" />
@@ -89,29 +93,35 @@ const page = ({ params }) => {
                     </div>
 
                     {product.length > 0 ?
-                        <div className="w-full h-full flex">
+                        <div className="w-full h-full flex lg:mt-16 sm:flex-col">
 
-                            <div className=" w-[23vw] h-full  py-5">
+                            <div className=" w-[23vw] h-full  py-5 sm:flex">
                                 <h1 className=' py-5 px-5'>Filter :</h1>
 
-                                <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md">
-                                    <div className=" bg-gray-300 shadow-md rounded-md p-5 ">Availability</div>
-                                    <div className="  bg-white p-5">
-                                        <p className='pb-3'>In stock</p>
-                                        <p className='pb-3'>Out of Stock</p>
+                                <div className="  sm:flex-col">
+                                    <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md sm:w-[80vw]">
+                                        <div className=" bg-gray-300 shadow-md rounded-md p-5 ">
+                                            <p onClick={() => {setClicked1(!clicked1), setClicked2(false)}}>Availability</p>
+                                        </div>
+                                        <div className={` bg-white p-5 ${clicked1 ? '' : 'sm:hidden'}`}>
+                                            <p className='pb-3'>In stock</p>
+                                            <p className='pb-3'>Out of Stock</p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md">
-                                    <div className=" bg-gray-300 shadow-md rounded-md p-5 ">Availability</div>
-                                    <div className="  bg-white p-5">
-                                        <p className='pb-3'>In stock</p>
-                                        <p className='pb-3'>Out of Stock</p>
+                                    <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md sm:w-[80vw]">
+                                        <div className=" bg-gray-300 shadow-md rounded-md p-5 ">
+                                            <p onClick={() => {setClicked2(!clicked2), setClicked1(false)}}>Price range</p>
+                                        </div>
+                                        <div className={` bg-white p-5 ${clicked2 ? '' : 'sm:hidden'}`}>
+                                            <p className='pb-3'>In stock</p>
+                                            <p className='pb-3'>Out of Stock</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className={` grid grid-cols-3 h-full w-[78vw] gap-4 p-4`}>
+                            <div className={` grid grid-cols-3 h-full w-[78vw] gap-4 p-4 sm:grid-cols-2 sm:w-[100%]`}>
                                 {product.map((i) => (
                                     <ProductCard
                                         data={i} />

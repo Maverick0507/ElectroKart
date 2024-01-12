@@ -44,7 +44,14 @@ const Index = ({ data, type }) => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: xtraSmallScreen ? 1 : smallScreen ? 2 : mediumScreen ? 3 : type === 'product' ? 4 : 5,
+    slidesToShow: xtraSmallScreen ? 1 : smallScreen ? 2 : mediumScreen ? 3  : 5,
+    slidesToScroll: 1
+  };
+
+  const settings2 = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: xtraSmallScreen ? 1 : smallScreen ? 2 : mediumScreen ? 3  : 5,
     slidesToScroll: 1
   };
 
@@ -52,7 +59,7 @@ const Index = ({ data, type }) => {
     <div>
       <div className={`w-full h-full p-9 ${mediumScreen ? 'md:w-full' : ''} sm:p-2`}>
         {type === 'product' ? (
-          <Slider className="w-full h-90%" {...settings}>
+          <Slider className="w-full h-90%" {...settings2}>
             {data.map((slide, i) => (
               <div key={i} className="">
                 <ProductCard page={'homePage'} data={slide} />

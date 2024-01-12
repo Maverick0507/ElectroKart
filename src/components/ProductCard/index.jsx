@@ -7,7 +7,7 @@ const index = ({ data, page }) => {
     const router = useRouter()
     const [imgAnimate, setImgAnimate] = useState(false)
 
-    const productPageStyle = 'w-[100%] h-[60vh] border-2 mb-2 shadow-md rounded-md '
+    const productPageStyle = 'w-[100%] h-[60vh] border-2 mb-2 shadow-md rounded-md lg:h-[35vh] md:h-[40vh] '
     const homePageStyle = 'w-[80%] h-[60vh] border-2 mb-2 shadow-md rounded-md lg:h-[30vh] xs:mx-auto xs:h-[40vh] xs:max-h-[50vh]'
 
     const productPageImageStyle = 'w-full h-[60%] border-2 relative'

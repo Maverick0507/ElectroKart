@@ -24,7 +24,7 @@ const Page = () => {
     };
 
     const [auth, setAuth] = useAuth()
-    const [cart,setCart]  = useCart()
+    const [cart, setCart] = useCart()
     const [loading, setLoading] = useState(false)
 
     const route = useRouter()
@@ -52,7 +52,7 @@ const Page = () => {
             }
         } catch (error) {
             console.error(error);
-            
+
         }
     };
 
@@ -81,7 +81,7 @@ const Page = () => {
 
                // log in
                 <Tab key="Log in" title="Log in">
-                    <Card className="md:w-[40vw] w-[50vw]">
+                    <Card className="md:w-[40vw] w-[50vw] sm:w-[80vw] sm:h-[30vh] sm:flex sm:justify-center sm:items-center">
                         <CardBody>
                             <form action="" className="flex flex-col justify-between items-center">
                                 <Input
@@ -102,8 +102,8 @@ const Page = () => {
                                     placeholder="Enter your password"
                                 />
                                 <Button onClick={handleLogin}>
-                                    
-                                    {loading ? <Spinner color='warning'/> : 'Login'}
+
+                                    {loading ? <Spinner color='warning' /> : 'Login'}
                                 </Button>
                             </form>
                         </CardBody>
@@ -112,7 +112,7 @@ const Page = () => {
 
         // sign in
                 <Tab key="Sign in" title="Sign in">
-                    <Card className="md:w-[40vw] w-[50vw]">
+                    <Card className="md:w-[40vw] w-[50vw] sm:w-[80vw] sm:h-[40vh] sm:flex sm:justify-center sm:items-center">
                         <CardBody>
                             <form action="" className="flex flex-col justify-between items-center">
                                 <Input
@@ -140,9 +140,9 @@ const Page = () => {
                                     placeholder="Enter your password"
                                 />
                                 <Button onClick={handleSignIn}>
-                                {loading ? <Spinner color='warning'/> : 'Sign in'}
+                                    {loading ? <Spinner color='warning' /> : 'Sign in'}
 
-                                    </Button>
+                                </Button>
                             </form>
                         </CardBody>
                     </Card>
