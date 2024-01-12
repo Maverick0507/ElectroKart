@@ -75,13 +75,13 @@ const Page = () => {
     };
 
     return (
-        <div className="flex w-full flex-col justify-center items-center mt-[7rem] h ">
+        <div className="flex w-full flex-col justify-center items-center mt-[7rem] ">
             <Tabs aria-label="Options" className="">
 
 
                // log in
                 <Tab key="Log in" title="Log in">
-                    <Card className="md:w-[40vw] w-[50vw] sm:w-[80vw] sm:h-[30vh] sm:flex sm:justify-center sm:items-center">
+                    <Card className="md:w-[40vw] w-[50vw] sm:w-[80vw] sm:flex sm:justify-center sm:items-center sm:h-full">
                         <CardBody>
                             <form action="" className="flex flex-col justify-between items-center">
                                 <Input
@@ -112,7 +112,7 @@ const Page = () => {
 
         // sign in
                 <Tab key="Sign in" title="Sign in">
-                    <Card className="md:w-[40vw] w-[50vw] sm:w-[80vw] sm:h-[40vh] sm:flex sm:justify-center sm:items-center">
+                    <Card className="md:w-[40vw] w-[50vw] sm:w-[80vw] sm:h-full sm:flex sm:justify-center sm:items-center">
                         <CardBody>
                             <form action="" className="flex flex-col justify-between items-center">
                                 <Input
