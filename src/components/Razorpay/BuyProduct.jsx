@@ -25,7 +25,6 @@ const BuyProduct = () => {
         const key = process.env.RAZORPAY_API_KEY;
         // Make API call to the serverless API
         const { data } = await productPayment({ amount });
-        console.log(data)
         const { order } = data
         const options = {
             key: 'rzp_test_tQuwaOCoxqfzFs',

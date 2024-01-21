@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 
-const Buy = ({ makePayment, a }) => {
+const Buy = ({ makePayment}) => {
 
     const [isLoading, setIsLoading] = useState(false);
 
