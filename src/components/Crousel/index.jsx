@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion';
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import 'swiper/swiper-bundle.css';
@@ -26,7 +27,7 @@ const Index = ({ data, type }) => {
     const handleResize = () => {
       setMediumScreen(window.innerWidth >= 768);
       setSmallScreen(window.innerWidth <= 639);
-      setXtraSmallScreen(window.innerWidth <=414)
+      setXtraSmallScreen(window.innerWidth <= 414)
     };
 
     // Initial call to set the initial values
@@ -44,19 +45,23 @@ const Index = ({ data, type }) => {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: xtraSmallScreen ? 1 : smallScreen ? 2 : mediumScreen ? 3  : 5,
+    slidesToShow: xtraSmallScreen ? 1 : smallScreen ? 2 : mediumScreen ? 3 : 5,
     slidesToScroll: 1
   };
 
   const settings2 = {
     infinite: true,
     speed: 500,
-    slidesToShow: xtraSmallScreen ? 1 : smallScreen ? 2 : mediumScreen ? 3  : 5,
+    slidesToShow: xtraSmallScreen ? 1 : smallScreen ? 2 : mediumScreen ? 3 : 5,
     slidesToScroll: 1
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.5 }}
+    >
       <div className={`w-full h-full p-9 ${mediumScreen ? 'md:w-full' : ''} sm:p-2`}>
         {type === 'product' ? (
           <Slider className="w-full h-90%" {...settings2}>
@@ -89,7 +94,7 @@ const Index = ({ data, type }) => {
           </Slider>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

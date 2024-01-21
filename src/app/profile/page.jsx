@@ -5,18 +5,20 @@ import { logout } from '@/services/auth/logout';
 import { token } from '@/services/auth/token';
 import { Tabs, Tab, Card, CardBody, Input, Button, Spinner } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import React, {  useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { userUpdate } from '@/services/user/userUpdate'
+
 
 const Page = () => {
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await token();
         if (!data.token) {
           router.push('/login');
         }
-       
+
       } catch (error) {
         console.error(error);
       }
@@ -29,11 +31,15 @@ const Page = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
 
+  const[visiblePassword, setVisiblePassword] = useState(false);
+
   const router = useRouter();
 
   const [name, setName] = useState(auth?.user?.name);
   const [email, setEmail] = useState(auth?.user?.email);
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
+  const [address, setAddress] = useState(auth?.user?.address);
+
 
   const handleLogout = async () => {
     try {
@@ -58,7 +64,15 @@ const Page = () => {
 
   // update user function is not completed yet
   const handleUpdate = async () => {
-
+    try {
+      const { data } = await userUpdate({ name, email, address,password })
+      if (data.success) {
+        alert("Profile updated successfully")
+        setAuth({ ...auth, user: data.updatedUser })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   };
 
 
@@ -92,20 +106,35 @@ const Page = () => {
                     />
                     <Input
                       value={email}
+                      disabled
                       onChange={(e) => setEmail(e.target.value)}
                       className="mb-[2rem]"
                       type="email"
-                      label="Email"
+                      label="Email" 
                       placeholder="Enter your email"
                     />
-                    <Input
+                   <Input
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="mb-[2rem]"
-                      type="password"
+                      type="text"
                       label="Password"
                       placeholder="Enter your password"
                     />
+                  
+                    
+                    {address === null ? '' :
+
+                      <Input
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        className="mb-[2rem]"
+                        type="text"
+                        label="Address"
+                        placeholder="Enter your address"
+                      />
+
+                    }
                     <Button onClick={handleUpdate}>
                       {updateLoading ? <Spinner color='warning' /> : 'Update'}
                     </Button>

@@ -1,4 +1,5 @@
 'use client'
+import { motion } from 'framer-motion';
 
 import Image from "next/image"
 import { Button } from "@nextui-org/react"
@@ -105,13 +106,18 @@ export default function Home() {
       {/* start */}
 
       {/*div 1 */}
-      <div className=" flex justify-between items-center gap-4 md:gap-0 sm:flex-col sm:gap-0 sm:mb-8">
+      <div
+        className=" flex justify-between items-center gap-4 md:gap-0 sm:flex-col sm:gap-0 sm:mb-8">
 
         <div className=" w-[50vw] h-[80vh]  relative lg:w-[30vw] lg:h-[40vh] md:w-[34vw] sm:w-full xs:h-[60vh]">
           <Image
             className=" object-cover w-full h-full "
             src={laptop} />
-          <div className="absolute top-10 left-8">
+          <motion.div
+            initial={{ y: -1000 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="absolute top-10 left-8">
             <h1 className=" text-3xl mb-5 font-bold "> Shop the Best</h1>
             <h1 className=" text-3xl font-bold "> Laptops Now !</h1>
 
@@ -121,13 +127,23 @@ export default function Home() {
             <Button className=" bg-white mt-7 p-6 text">
               Show Now
             </Button>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="w-[30vw] h-[80vh] cursor-pointer lg:h-[40vh] md:w-[33vw] sm:w-full sm:text-center xs:h-[60vh]">
+        <div 
+        
+        className="w-[30vw] h-[80vh] cursor-pointer lg:h-[40vh] md:w-[33vw] sm:w-full sm:text-center xs:h-[60vh]">
           <Image src={phone} className="h-[70%]" />
-          <h1 className="font-bold p-3 text-xl">Best Smartphone</h1>
-          <h1 className="font-bold p-3 text-xl">In Your Range !</h1>
+          <motion.h1
+          initial={{ y: -1000 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+           className="font-bold p-3 text-xl">Best Smartphone</motion.h1>
+          <motion.h1 
+          initial={{ y: -1000 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="font-bold p-3 text-xl">In Your Range !</motion.h1>
         </div>
 
 
@@ -181,7 +197,7 @@ export default function Home() {
           </div>
         </div>
 
-        
+
 
 
         <div onClick={() => router.push('products/658d686aeb67375724681efc')}
@@ -231,9 +247,9 @@ export default function Home() {
       </div>
 
       {/* div 6 footer */}
-     <div className=" mt-10">
-      <Footer/>
-     </div>
+      <div className=" mt-10">
+        <Footer />
+      </div>
     </main>
 
   )

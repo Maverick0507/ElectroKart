@@ -1,6 +1,6 @@
 import connectToDb from '@/database/index';
 import { NextResponse } from 'next/server';
-import ProductCart from '@/models/cart';
+import ProductCart from '@/models/productOrder';
 import ProductSchema from '@/models/product'
 
 export const dynamic = "force-dynamic";
@@ -23,7 +23,7 @@ export async function POST(req) {
             if (quantity > 0) {
                 const cartItem = await ProductCart.create({
                      product_id, 
-                     quantity:90,
+                     quantity,
                       color,
                        price,
                        productName

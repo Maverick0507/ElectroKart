@@ -5,7 +5,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar/index'
 import { AuthProvider } from '@/context/authContext';
 import { CartProvider } from '@/context/cartContext';
-
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         </Providers>
       </body>
 
-
+<Script src ="https://checkout.razorpay.com/v1/checkout.js"/>
     </html>
   )
 }

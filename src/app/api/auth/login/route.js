@@ -11,8 +11,7 @@ export async function POST(req) {
     await connectToDb();
 
     const { email, password } = await req.json();
-    console.log(email)
-    console.log('1')
+   
     if (!email || !password) {
         return NextResponse.json({
             success: false,
@@ -64,6 +63,7 @@ export async function POST(req) {
                 name: existingUser.name,
                 id: existingUser._id,
                 role: existingUser.role,
+                address: existingUser.address,
             },
             token:token,
         });

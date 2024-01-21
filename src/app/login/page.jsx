@@ -24,7 +24,6 @@ const Page = () => {
     };
 
     const [auth, setAuth] = useAuth()
-    const [cart, setCart] = useCart()
     const [loading, setLoading] = useState(false)
 
     const route = useRouter()
