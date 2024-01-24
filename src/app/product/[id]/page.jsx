@@ -15,7 +15,6 @@ const page = ({ params }) => {
     const [mainImg, setMainImg] = useState(0)
 
     //    detail of product to add in cart
-    const [quantity, setQuantity] = useState(0)
     const [color, setColor] = useState('')
     const [totalPrice, setTotalPrice] = useState('')
     const [image, setImage] = useState('')
@@ -27,7 +26,6 @@ const page = ({ params }) => {
     const cartProduct = {
         productId,
         color,
-        quantity,
         totalPrice,
         productName,
         image
@@ -35,8 +33,8 @@ const page = ({ params }) => {
 
 
     const addToCart = async () => {
-        setTotalPrice(quantity * product.price)
-        if (productId && color && quantity && totalPrice) {
+        setTotalPrice(product.price)
+        if (productId && color  && totalPrice) {
             const updatedCart = [...cart, cartProduct]
             setCart(updatedCart)
             localStorage.setItem('cart', JSON.stringify(updatedCart))
@@ -116,17 +114,7 @@ const page = ({ params }) => {
 
                             {/* product price */}
                             <h1 className=' font-semibold text-2xl mb-4'><span className=' text-gray-400'>Price :</span>{product.price}</h1>
-
-                            {/* product quantity */}
-                            <Slider
-                                label={`Items left in stock: `}
-                                isDisabled
-                                step={1}
-                                maxValue={500}
-                                minValue={0}
-                                defaultValue={product.quantity}
-                                className="max-w-md"
-                            />
+                        
 
                             {/* product color */}
                             <div className=' flex gap-5  items-center my-5 sm:flex-wrap'>
@@ -140,32 +128,7 @@ const page = ({ params }) => {
                             {/* product quantity btn,  add to cart btn,  buy now btn */}
                             <div className=" flex flex-col gap-10 my-9">
                                 <div className=" flex gap-10 w-[70%] lg:w-[90%] md:w-full md:flex-col">
-                                    <div>
-                                        <Button
-                                            onClick={() => {
-                                                const updatedQuantity = quantity - 1;
-                                                setQuantity(updatedQuantity);
-                                                setTotalPrice(product.price * updatedQuantity);
-                                            }}
-                                            className=' rounded-none bg-white border-1'
-                                        >
-                                            -
-                                        </Button>
-
-                                        <Button className=' rounded-none'>{quantity}</Button>
-
-                                        <Button
-                                            onClick={() => {
-                                                const updatedQuantity = quantity + 1;
-                                                setQuantity(updatedQuantity);
-                                                setTotalPrice(product.price * updatedQuantity);
-                                            }}
-                                            className=' rounded-none bg-white border-1'
-                                        >
-                                            +
-                                        </Button>
-
-                                    </div>
+                                    
                                     <Button
                                         onClick={() => addToCart()}
                                         className=' p-5 rounded-none'>Add to cart</Button>

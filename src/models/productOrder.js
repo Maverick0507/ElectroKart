@@ -1,5 +1,7 @@
 
 import mongoose from 'mongoose'
+import Product from './product';
+import User from './user';
 
 const ProductOrderSchema = new mongoose.Schema(
     {
@@ -7,6 +9,7 @@ const ProductOrderSchema = new mongoose.Schema(
             type: mongoose.ObjectId,
             ref: 'Product'
         }],
+       
         buyer:
         {
             type: mongoose.ObjectId,

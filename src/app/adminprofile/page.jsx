@@ -5,7 +5,7 @@ import { logout } from '@/services/auth/logout';
 import { token } from '@/services/auth/token';
 import { Tabs, Tab, Card, CardBody, Input, Button, Spinner } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import React, { useLayoutEffect,useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 
 const Page = () => {
 
@@ -16,7 +16,7 @@ const Page = () => {
         if (!data.token) {
           router.push('/login');
         }
-       
+
       } catch (error) {
         console.error(error);
       }
@@ -58,7 +58,7 @@ const Page = () => {
 
   // empty function
   const handleUpdate = async () => {
-   
+
   };
 
   return (
@@ -73,7 +73,6 @@ const Page = () => {
       <div className="w-[90%] m-auto flex justify-between  mt-12">
         <div className="order">
           <h1 className='font-bold text-xl'>Product Deatils</h1>
-          <p>You haven't added any Product or Category yet.</p>
 
           <div className="flex flex-col gap-5 mt-4">
             <Button
@@ -85,6 +84,16 @@ const Page = () => {
               onClick={() => router.push('/admin/addcategory')}
               className='bg-yellow-200'>
               Add Category
+            </Button>
+            <Button
+              onClick={() => router.push('/admin/users')}
+            >
+              User
+            </Button>
+            <Button
+              onClick={() => router.push('/admin/userOrder')}
+            >
+              Orders
             </Button>
           </div>
 

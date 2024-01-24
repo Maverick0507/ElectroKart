@@ -6,7 +6,7 @@ import { token } from '@/services/auth/token';
 import { Tabs, Tab, Card, CardBody, Input, Button, Spinner } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { userUpdate } from '@/services/user/userUpdate'
+import { getAllOrders, userUpdate } from '@/services/user'
 
 
 const Page = () => {
@@ -31,14 +31,17 @@ const Page = () => {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
 
-  const[visiblePassword, setVisiblePassword] = useState(false);
-
   const router = useRouter();
 
   const [name, setName] = useState(auth?.user?.name);
   const [email, setEmail] = useState(auth?.user?.email);
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState(auth?.user?.address);
+
+
+  // order details
+  const [order, setOrder] = useState([])
+  const [buyer, setBuyer] = useState()
 
 
   const handleLogout = async () => {
@@ -65,7 +68,7 @@ const Page = () => {
   // update user function is not completed yet
   const handleUpdate = async () => {
     try {
-      const { data } = await userUpdate({ name, email, address,password })
+      const { data } = await userUpdate({ name, email, address, password })
       if (data.success) {
         alert("Profile updated successfully")
         setAuth({ ...auth, user: data.updatedUser })
@@ -74,6 +77,24 @@ const Page = () => {
       console.log(error)
     }
   };
+
+  const getAllOrder = async () => {
+    const { data } = await getAllOrders(auth?.user?.id)
+    console.log(data)
+
+
+    if (data.success) {
+      setOrder(data?.orders)
+    }
+  }
+
+  useEffect(() => {
+    getAllOrder()
+  }, [auth])
+
+
+  const textStyle =
+    ` text-[13px]`
 
 
   return (
@@ -85,11 +106,33 @@ const Page = () => {
         </Button>
       </div>
 
-      <div className="w-[90%] m-auto flex justify-between  mt-12">
-        <div className="order">
+      <div className="w-[90%] m-auto flex justify-between  mt-12 gap-4">
+        <div className=" w-full">
           <h1 className='font-bold text-xl'>Product Order</h1>
-          <p>You haven't order any Product  yet.</p>
+          {order.length === 0 ? <p>You haven't order any Product  yet.</p> : null}
+          <div className='mt-5'>
+            {order.map((orderItem) => (
+              <div
+                key={orderItem._id}>
+                {orderItem.products.map((productItem) => (
+                  <div
+                  >
+                    <div className=" flex justify-between items-center rounded-md bg-gray-300 w-full my-3 px-3 shadow-md cursor-pointer hover:shadow-none duration-150 ease-out">
+                      <img className=' h-[100px] w-[100px] rounded-md p-3'
+                        key={productItem._id}
+                        src={productItem?.photos[0]} alt="" />
+                      <p className={textStyle}>{productItem?.productName}</p>
+                      <p className={textStyle}>Price: <span className=' font-semibold'>{productItem?.price}</span></p>
+                      <p className={textStyle}>Order Date: <span className=' font-semibold'>{productItem?.createdAt.slice(0, 10)}</span></p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
         </div>
+
         <div className="profile">
           <Tabs aria-label="Options" >
             <Tab key="Sign in" title="Account Details" className=''>
@@ -110,10 +153,10 @@ const Page = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       className="mb-[2rem]"
                       type="email"
-                      label="Email" 
+                      label="Email"
                       placeholder="Enter your email"
                     />
-                   <Input
+                    <Input
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="mb-[2rem]"
@@ -121,8 +164,8 @@ const Page = () => {
                       label="Password"
                       placeholder="Enter your password"
                     />
-                  
-                    
+
+
                     {address === null ? '' :
 
                       <Input

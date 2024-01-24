@@ -1,18 +1,40 @@
 "use client";
-import React, { Suspense } from "react";
-import { useRouter } from 'next/navigation';
+import React, { Suspense, useState } from "react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, RadioGroup, Radio } from "@nextui-org/react";
+
 import Buy from "./Buy";
 import Loading from "@/app/loading";
-import { productPayment, productPaymentVerify } from "@/services/payment";
+import { productPayment } from "@/services/payment";
+import { orderPaymentFinal } from '@/services/orderPaymentFinal'
 import { useAuth } from "@/context/authContext";
+import { useCart } from "@/context/cartContext";
+import { userUpdate } from "@/services/user";
 
 
 
 const BuyProduct = () => {
 
-    const router = useRouter()
-    const amount = 20000
-    const [auth] = useAuth()
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+    const [userAdress, setUserAdress] = useState({})
+
+
+    const [auth, setAuth] = useAuth()
+    const [cart, setCart] = useCart()
+    const amount = cart.reduce((acc, item) => acc + item.totalPrice, 0);
+
+    const addAddress = async () => {
+        try {
+            const { data } = await userUpdate({ email: auth.user.email, address: userAdress })
+            if (data.success) {
+                setAuth({ ...auth, user: { ...auth.user, address: userAdress } }); // Update the address in the authentication context
+                console.log(auth);
+                alert('Address updated successfully');
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     const makePayment = async ({ productId = null }) => {
@@ -21,8 +43,14 @@ const BuyProduct = () => {
             alert("please login to continue")
             return
         }
+        else {
+            if (auth.user.address === null || auth === null) {
+                onOpen()
+                return
+            }
+        }
 
-        const key = process.env.RAZORPAY_API_KEY;
+
         // Make API call to the serverless API
         const { data } = await productPayment({ amount });
         const { order } = data
@@ -85,6 +113,15 @@ const BuyProduct = () => {
         paymentObject.on("payment.failed", function (response) {
             alert("Payment failed. Please try again. Contact support for help");
         });
+
+        if (data.msg === 'success') {
+            const { data } = await orderPaymentFinal({ cart, buyer: auth?.user?.id });
+            if (data.success) {
+                localStorage.removeItem('cart');
+                setCart([]);
+            }
+        }
+
     };
 
     return (
@@ -92,6 +129,36 @@ const BuyProduct = () => {
             <Suspense fallback={<Loading />}>
                 <Buy makePayment={makePayment} />
             </Suspense>
+
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+                            <ModalBody>
+                                <p>
+                                    Enter delivery address
+                                </p>
+                                <form className=' '>
+                                    <input
+                                        className=' border-2 outline-none h-10 rounded-md p-4 w-full mb-2'
+                                        type="text"
+                                        placeholder='House no.'
+                                        onChange={(e) => setUserAdress(e.target.value)}
+                                    />
+
+                                </form>
+
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button onClick={addAddress} color="success" variant="light" onPress={onClose}>
+                                    Submit
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </>
     );
 };
