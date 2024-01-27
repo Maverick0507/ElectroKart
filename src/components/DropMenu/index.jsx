@@ -26,7 +26,7 @@ const Index = ({allCategory,allSubCategories}) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 0.5 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
       className=' absolute
       left-10 md:left-[32%]  right-10  h-auto md:h-[50vh]  md:w-[65vw]   rounded-lg  flex shadow-xl  bg-gray-200 gap-4
       justify-evenly'
