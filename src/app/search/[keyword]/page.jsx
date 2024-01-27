@@ -1,7 +1,6 @@
 'use client'
 
-import { fetchSingleCategory } from '@/services/category'
-import { getAllProducts } from '@/services/product'
+import { getSearchedProduct } from '@/services/product'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard/index'
@@ -9,46 +8,31 @@ import { CircularProgress } from '@nextui-org/react'
 
 
 const page = ({ params }) => {
-    const subCategoryId = params.id
+    const keyword = params.keyword
 
     const [product, setProduct] = useState([])
-    const [subCategory, setSubCategory] = useState({})
 
     const [loading, setLoading] = useState(false)
 
     const [clicked1, setClicked1] = useState(false)
     const [clicked2, setClicked2] = useState(false)
 
-    const [cols,setCols] = useState(4)
+    const [cols, setCols] = useState(4)
 
 
 
     const router = useRouter()
 
-    const getSingleSubCategory = async () => {
-        try {
-            const { data } = await fetchSingleCategory(subCategoryId)
-            if (data.success) {
-                setSubCategory(data.subCategory)
-            }
-            else {
-                alert(`Error fetching category`)
-            }
-        } catch (error) {
-            console.log("Error fetching category")
-        }
-    }
 
     const getProducts = async () => {
         try {
             setLoading(true)
-            const { data } = await getAllProducts(subCategoryId)
+            const { data } = await getSearchedProduct(keyword)
             if (data.success) {
-                setProduct(data.AllProduct)
+                setProduct(data.Product)
                 setLoading(false)
             }
             else {
-                alert(`Error fetching product`)
                 setLoading(false)
             }
         } catch (error) {
@@ -58,9 +42,8 @@ const page = ({ params }) => {
     }
 
     useEffect(() => {
-        getSingleSubCategory()
         getProducts()
-    }, [subCategoryId])
+    }, [keyword])
 
     return (
         <div className='pt-[6rem] h-full'>
@@ -72,38 +55,29 @@ const page = ({ params }) => {
                 :
                 <>
                     <div className=" border-2 w-full h-[20vh] my-10 p-5 shadow-md bg-blue-100 lg:h-[10vh] ">
-                        <p className=' font-bold text-xl'>{subCategory.name}</p>
 
                         <p className='font-semibold cursor-pointer'><span
-                            onClick={() => router.push('/')}>Home</span> / <span
-                                onClick={() => router.push(`/products/${subCategoryId}`)}>{subCategory.name}</span></p>
+                            onClick={() => router.push('/')}>Home</span> </p>
                     </div>
 
-                    <div className=" w-full h-[50vh] border-2 p-5 flex lg:h-[30vh] sm:flex-col sm:h-auto ">
+                    <div className=" w-full h-[30vh] border-2 p-5 flex lg:h-[30vh] sm:flex-col sm:h-auto ">
 
-                        <div className=" h-full w-[60%] flex justify-center items-center flex-col lg:w-[50%] sm:w-full">
+                        <div className=" h-full w-full text-center lg:w-[50%] sm:w-full">
                             <h1 className=' text-5xl text-gray-400 font-semibold sm:text-3xl'>Limited time offer</h1>
                             <h2
                                 className=' text-4xl text-black font-semibold sm:text-2xl'
                             >Grab Awesome Deals</h2>
                         </div>
-                        <div className=" h-full w-[40%] border-2 lg:w-[50%] sm:w-full sm:h-[20vh] sm:mt-5">
-                            <img
-                                className=' w-full h-full object-fit'
-                                src={subCategory.photos} alt="subCategory image" />
-                        </div>
+                       
                     </div>
 
-                    {product.length > 0 ?
+                    {product && product.length > 0 ?
                         <div className="w-full h-full  lg:mt-16 sm:flex-col items-center justify-center">
                             <div className=' flex justify-between items-center h-[50px] bg-gray-300 p-6'>
-                                <div className="flex gap-8">
-                                <p onClick={()=>setCols(2)} 
-                                    className=' font-semibold cursor-pointer '>||</p>
-                                    <p onClick={()=>setCols(3)} 
-                                    className=' font-semibold cursor-pointer '>|||</p>
-                                    <p onClick={()=>setCols(4)} 
-                                    className=' font-semibold cursor-pointer '>||||</p>
+                                <div className="flex gap-8 sm:hidden">
+                                    <button onClick={() => setCols(2)} className=' font-semibold cursor-pointer '>||</button>
+                                    <button onClick={() => setCols(3)} className=' font-semibold cursor-pointer '>|||</button>
+                                    <button onClick={() => setCols(4)} className=' font-semibold cursor-pointer '>||||</button>
                                 </div>
                                 <div>sort by</div>
                             </div>

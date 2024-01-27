@@ -80,3 +80,18 @@ export const getLimitedProduct = async () => {
     throw error;
   }
 }
+
+
+export const getSearchedProduct = async (keyword) => {
+  try {
+    const res = await axios.post('/api/user/getProductBySearch', keyword, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    return res
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}

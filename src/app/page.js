@@ -121,10 +121,12 @@ export default function Home() {
             <h1 className=" text-3xl mb-5 font-bold "> Shop the Best</h1>
             <h1 className=" text-3xl font-bold "> Laptops Now !</h1>
 
-            <p className="mt-8 text-semibold">Pair text with an icon to focus on</p>
-            <p className="text-semibold">your store's features</p>
+            <p className="mt-8 text-semibold">Pair best software with best hardware to provide </p>
+            <p className="text-semibold">power of computation</p>
 
-            <Button className=" bg-white mt-7 p-6 text">
+            <Button 
+            onClick={()=>router.push('/products/657eea56923cb11a492569df')}
+            className=" bg-white mt-7 p-6 text">
               Show Now
             </Button>
           </motion.div>
@@ -151,11 +153,15 @@ export default function Home() {
 
           <div className="  h-[38vh] w-full relative cursor-pointer lg:h-[18vh] md:h-[20vh] sm:h-[100%]">
             <Image src={headphone} className=" object-cover h-full" />
-            <Button className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Play now</Button>
+            <Button
+            onClick={()=>router.push('/products/657eeeff923cb11a492569e9')}
+             className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Play now</Button>
           </div>
           <div className="  h-[38vh] w-full relative cursor-pointer lg:h-[18vh] md:h-[20vh] sm:h-[100%]">
             <Image src={earbud} className=" object-cover w-full h-full" />
-            <Button className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Explore Our New Earbuds</Button>
+            <Button
+            onClick={()=>router.push('/products/657eef14923cb11a492569ed')}
+             className="absolute bottom-7 left-3 font-semibold  rounded-md p-2 bg-slate-50 opacity-70">Explore Our New Earbuds</Button>
           </div>
         </div>
 
