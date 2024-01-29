@@ -95,3 +95,18 @@ export const getSearchedProduct = async (keyword) => {
     throw error;
   }
 }
+
+export const getFilterProduct = async (newMinValue,newMaxValue) => {
+  console.log(newMinValue,newMaxValue);
+  try {
+    const res = await axios.post('/api/user/getProductByFilter', {newMinValue, newMaxValue}, {
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    return res
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}

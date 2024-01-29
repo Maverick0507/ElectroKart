@@ -10,12 +10,13 @@ const page = ({ params }) => {
     const [product, setProduct] = useState({})
     const [productName, setProductName] = useState('')
     const [loading, setLoading] = useState(false)
-    
+
 
     const [mainImg, setMainImg] = useState(0)
 
     //    detail of product to add in cart
     const [color, setColor] = useState('')
+    const [selected, setSelected] = useState(false)
     const [totalPrice, setTotalPrice] = useState('')
     const [image, setImage] = useState('')
 
@@ -34,14 +35,14 @@ const page = ({ params }) => {
 
     const addToCart = async () => {
         setTotalPrice(product.price)
-        if (productId && color  && totalPrice) {
+        if (productId && color && totalPrice) {
             const updatedCart = [...cart, cartProduct]
             setCart(updatedCart)
             localStorage.setItem('cart', JSON.stringify(updatedCart))
             alert("item added to cart")
         }
         else {
-            alert('Please select quantity and color before adding to cart.')
+            alert('Please select color before adding to cart.')
         }
     }
 
@@ -114,26 +115,31 @@ const page = ({ params }) => {
 
                             {/* product price */}
                             <h1 className=' font-semibold text-2xl mb-4'><span className=' text-gray-400'>Price :</span>{product.price}</h1>
-                        
+
 
                             {/* product color */}
-                            <div className=' flex gap-5  items-center my-5 sm:flex-wrap'>
+                            <div className={`flex gap-5  items-center my-5 sm:flex-wrap `}>
                                 <h1>Color:</h1>
-                                {product?.colors?.map((i) => (
-                                    <p onClick={() => setColor(i)}
-                                        className=' capitalize hover:cursor-pointer hover:bg-gray-400 hover:text-white hover:border-white ease-in duration-200  border-2 border-black rounded-md p-[5px] '>{i}</p>
+                                {product?.colors?.map((color, index) => (
+                                    <p
+                                        key={index}
+                                        onClick={() => { setColor(color); setSelected(color); }}
+                                        className={` ${selected === color ? 'bg-gray-400' : ''} capitalize hover:cursor-pointer hover:bg-gray-400 hover:text-white hover:border-white ease-in duration-200  border-2 border-black rounded-md p-[5px] `}
+                                    >
+                                        {color}
+                                    </p>
                                 ))}
                             </div>
 
                             {/* product quantity btn,  add to cart btn,  buy now btn */}
                             <div className=" flex flex-col gap-10 my-9">
                                 <div className=" flex gap-10 w-[70%] lg:w-[90%] md:w-full md:flex-col">
-                                    
+
                                     <Button
                                         onClick={() => addToCart()}
                                         className=' p-5 rounded-none'>Add to cart</Button>
                                 </div>
-                                <Button className=' rounded-none p-5 w-[64%] lg:w-[86%] md:w-full'>Buy Now</Button>
+                                {/* <Button className=' rounded-none p-5 w-[64%] lg:w-[86%] md:w-full'>Buy Now</Button> */}
 
                             </div>
 

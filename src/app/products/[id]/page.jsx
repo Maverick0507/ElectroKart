@@ -1,11 +1,11 @@
 'use client'
 
 import { fetchSingleCategory } from '@/services/category'
-import { getAllProducts } from '@/services/product'
+import { getAllProducts, getFilterProduct } from '@/services/product'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import ProductCard from '@/components/ProductCard/index'
-import { CircularProgress } from '@nextui-org/react'
+import { CircularProgress, Slider } from '@nextui-org/react'
 
 
 const page = ({ params }) => {
@@ -19,7 +19,10 @@ const page = ({ params }) => {
     const [clicked1, setClicked1] = useState(false)
     const [clicked2, setClicked2] = useState(false)
 
-    const [cols,setCols] = useState(4)
+    const [cols, setCols] = useState(4)
+
+    const [minValue, setMinValue] = useState(0);
+    const [maxValue, setMaxValue] = useState(50000);
 
 
 
@@ -62,6 +65,20 @@ const page = ({ params }) => {
         getProducts()
     }, [subCategoryId])
 
+
+
+    const handleSliderChange = async (values) => {
+        const [newMinValue, newMaxValue] = values;
+        const { data } = await getFilterProduct(newMinValue, newMaxValue);
+        if (data.success === true) {
+            setProduct(data.Product);
+        }
+    };
+
+    useEffect(() => {
+        handleSliderChange([minValue, maxValue]);
+    }, [minValue, maxValue]);
+
     return (
         <div className='pt-[6rem] h-full'>
 
@@ -94,61 +111,69 @@ const page = ({ params }) => {
                         </div>
                     </div>
 
-                    {product.length > 0 ?
-                        <div className="w-full h-full  lg:mt-16 sm:flex-col items-center justify-center">
-                            <div className=' flex justify-between items-center h-[50px] bg-gray-300 p-6'>
-                                <div className="flex gap-8">
-                                <p onClick={()=>setCols(2)} 
+
+                    <div className="w-full h-full  lg:mt-16 sm:flex-col items-center justify-center">
+                        <div className=' flex justify-between items-center h-[50px] bg-gray-300 p-6'>
+                            <div className="flex gap-8 sm:hidden">
+                                <p onClick={() => setCols(1)}
+                                    className=' font-semibold cursor-pointer '>|</p>
+                                <p onClick={() => setCols(2)}
                                     className=' font-semibold cursor-pointer '>||</p>
-                                    <p onClick={()=>setCols(3)} 
+                                <p onClick={() => setCols(3)}
                                     className=' font-semibold cursor-pointer '>|||</p>
-                                    <p onClick={()=>setCols(4)} 
-                                    className=' font-semibold cursor-pointer '>||||</p>
-                                </div>
-                                <div>sort by</div>
                             </div>
+                            <div>sort by</div>
+                        </div>
 
-                            <div className=" flex sm:flex-col">
-                                <div className=" w-[23vw] h-full  py-5 sm:flex">
-                                    <h1 className=' py-5 px-5'>Filter :</h1>
+                        <div className=" flex sm:flex-col">
+                            {/* filters */}
+                            <div className=" w-[23vw] h-full  py-5 sm:flex">
+                                <h1 className=' py-5 px-5'>Filter :</h1>
 
-                                    <div className="  sm:flex-col">
-                                        <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md sm:w-[80vw]">
-                                            <div className=" bg-gray-300 shadow-md rounded-md p-5 ">
-                                                <p onClick={() => { setClicked1(!clicked1), setClicked2(false) }}>Availability</p>
-                                            </div>
-                                            <div className={` bg-white p-5 ${clicked1 ? '' : 'sm:hidden'}`}>
-                                                <p className='pb-3'>In stock</p>
-                                                <p className='pb-3'>Out of Stock</p>
-                                            </div>
+                                <div className="  sm:flex-col">
+                                    {/* stock filter */}
+                                   
+
+                                    {/* price filter */}
+                                    <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md sm:w-[80vw]">
+                                        <div className=" bg-gray-300 shadow-md rounded-md p-5 ">
+                                            <p onClick={() => { setClicked2(!clicked2), setClicked1(false) }}>Price range</p>
                                         </div>
+                                        <div className={` bg-white p-5 ${clicked2 ? '' : 'sm:hidden'}`}>
+                                        <Slider
+                                        label="Price Range"
+                                        step={1000}
+                                        minValue={minValue}
+                                        maxValue={maxValue}
+                                        defaultValue={[0, 50000]}
+                                        formatOptions={{ style: "currency", currency: "INR" }}
+                                        onChange={handleSliderChange}
+                                        className="max-w-full"
+                                    />
 
-                                        <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md sm:w-[80vw]">
-                                            <div className=" bg-gray-300 shadow-md rounded-md p-5 ">
-                                                <p onClick={() => { setClicked2(!clicked2), setClicked1(false) }}>Price range</p>
-                                            </div>
-                                            <div className={` bg-white p-5 ${clicked2 ? '' : 'sm:hidden'}`}>
-                                                <p className='pb-3'>In stock</p>
-                                                <p className='pb-3'>Out of Stock</p>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className={` grid ${cols == 4 ? 'grid-cols-4' : cols === 3 ? 'grid-cols-3' : 'grid-cols-2'} h-full w-[78vw] gap-4 p-4 sm:grid-cols-2 sm:w-[100%]`}>
-                                    {product.map((i) => (
-                                        <ProductCard
-                                            data={i} />
-                                    ))}
-                                </div>
                             </div>
+                             
+                             {/* products */}
+                            {product && product.length > 0 ?
+                                    <div className={` grid ${cols == 3 ? 'grid-cols-3' : cols === 2 ? 'grid-cols-2' : cols === 1 ? 'grid-cols-1' : 'grid-cols-3'} h-full w-[78vw] gap-4 p-4 sm:grid-cols-2 sm:w-[100%] `}>
+                                        {product.map((i) => (
+                                            <ProductCard
+                                                data={i} />
+                                        ))}
+                                    </div>
+                                    :
+                                    <div className='w-full h-[30vh] flex flex-col justify-center items-center'>
+                                        <h1 className=' font-bold text-5xl '>No Product </h1>
+                                        <h1 className=' font-bold text-5xl '>Come Back Later</h1>
+                                    </div>
+                                }
                         </div>
-                        :
-                        <div className='w-full h-[30vh] flex flex-col justify-center items-center'>
-                            <h1 className=' font-bold text-5xl '>No Product </h1>
-                            <h1 className=' font-bold text-5xl '>Come Back Later</h1>
-                        </div>
-                    }
+
+                    </div>
+
                 </>
             }
 
