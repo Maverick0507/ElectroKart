@@ -28,8 +28,8 @@ const Index = ({allCategory,allSubCategories}) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.3 }}
       className=' absolute
-      left-10 md:left-[32%]  right-10  h-auto md:h-[50vh]  md:w-[65vw]   rounded-lg  flex shadow-xl  bg-gray-200 gap-4
-      justify-evenly'
+      left-10 md:left-[32%]  right-10  h-auto md:h-[50vh]  md:w-[65vw]   rounded-lg  flex md:flex-wrap shadow-xl  bg-gray-200 gap-4
+      justify-evenly overflow-scroll'
     >
       {allCategory.map((category) => (
         <div key={category._id}>

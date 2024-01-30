@@ -9,11 +9,14 @@ import { useRouter } from 'next/navigation'
 const page = ({ params }) => {
     const productId = params.id
     const router = useRouter()
-    
+
 
     const [product, setProduct] = useState({})
+    console.log(product)
     const [productName, setProductName] = useState('')
     const [loading, setLoading] = useState(false)
+
+    // handle product price if there is discount
 
 
     const [mainImg, setMainImg] = useState(0)
@@ -119,7 +122,7 @@ const page = ({ params }) => {
                             <h1 className=' font-bold text-3xl mb-5'>{product.productName}</h1>
 
                             {/* product price */}
-                            <h1 className=' font-semibold text-2xl mb-4'><span className=' text-gray-400'>Price :</span>{product.price}</h1>
+                            <h1 className=' font-semibold text-2xl mb-4'><span className=' text-gray-400'>Price :</span> {product.price}</h1>
 
 
                             {/* product color */}
