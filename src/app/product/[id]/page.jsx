@@ -4,9 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { Button, CircularProgress, Slider, Accordion, AccordionItem } from "@nextui-org/react";
 import { MdRateReview, MdDescription } from "react-icons/md";
 import { useCart } from '@/context/cartContext';
+import { useRouter } from 'next/navigation'
 
 const page = ({ params }) => {
     const productId = params.id
+    const router = useRouter()
+
     const [product, setProduct] = useState({})
     const [productName, setProductName] = useState('')
     const [loading, setLoading] = useState(false)
@@ -106,8 +109,9 @@ const page = ({ params }) => {
 
                         {/* product data section */}
                         <div className="h-[100%] w-[60%] bg-white px-10 sm:w-full sm:mt-4">
-                            <p className=' text-gray-300 text-xl mb-8'>
-                                <span>Home</span>/ <span>{product.productName}</span>
+                            <p className=' text-gray-300 text-xl mb-8 font-semibold cursor-pointer'>
+                                <span className=' '
+                                 onClick={() => router.push('/')}>Home</span>/ <span>{product.productName}</span>
                             </p>
 
                             {/* product name */}
