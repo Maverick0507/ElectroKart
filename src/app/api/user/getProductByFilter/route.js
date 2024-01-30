@@ -9,14 +9,29 @@ export async function POST(req) {
         // Ensure that the database connection is established before proceeding
         await connectToDb();
 
-        const { newMinValue, newMaxValue,subCategoryId } = await req.json();
+        const { newMinValue, newMaxValue, subCategoryId, keyword } = await req.json();
 
-        const Product = await ProductModel
-            .find({
-                // Assuming 'price' is the field in your ProductModel representing the product price
-                category:subCategoryId,
-                price: { $gte: newMinValue, $lte: newMaxValue }
-            })
+        let Product
+
+        if (!keyword) {
+            Product = await ProductModel
+                .find({
+                    // Assuming 'price' is the field in your ProductModel representing the product price
+                    category: subCategoryId,
+                    price: { $gte: newMinValue, $lte: newMaxValue }
+                })
+        }
+        else {
+            Product = await ProductModel
+                .find({
+                    // Assuming 'price' is the field in your ProductModel representing the product price
+                    $or: [
+                        { productName: { $regex: keyword, $options: 'i' } },
+                        { description: { $regex: keyword, $options: 'i' } },
+                    ],
+                    price: { $gte: newMinValue, $lte: newMaxValue }
+                })
+        }
 
         if (Product.length > 0) {
             return NextResponse.json({

@@ -25,6 +25,10 @@ const page = ({ params }) => {
     const [maxValue, setMaxValue] = useState(50000);
 
 
+    // for filtering product api to make it seperate
+    const keyword = null
+
+
 
     const router = useRouter()
 
@@ -69,7 +73,7 @@ const page = ({ params }) => {
 
     const handleSliderChange = async (values) => {
         const [newMinValue, newMaxValue] = values;
-        const { data } = await getFilterProduct(newMinValue, newMaxValue,subCategoryId);
+        const { data } = await getFilterProduct(newMinValue, newMaxValue, subCategoryId, keyword);
         if (data.success === true) {
             setProduct(data.Product);
         }
@@ -132,7 +136,7 @@ const page = ({ params }) => {
 
                                 <div className="  sm:flex-col">
                                     {/* stock filter */}
-                                   
+
 
                                     {/* price filter */}
                                     <div className="mb-3 w-full h-auto border-2 shadow-lg rounded-md sm:w-[80vw]">
@@ -140,36 +144,36 @@ const page = ({ params }) => {
                                             <p onClick={() => { setClicked2(!clicked2), setClicked1(false) }}>Price range</p>
                                         </div>
                                         <div className={` bg-white p-5 ${clicked2 ? '' : 'sm:hidden'}`}>
-                                        <Slider
-                                        label="Price Range"
-                                        step={1000}
-                                        minValue={minValue}
-                                        maxValue={maxValue}
-                                        defaultValue={[0, 50000]}
-                                        formatOptions={{ style: "currency", currency: "INR" }}
-                                        onChange={handleSliderChange}
-                                        className="max-w-full"
-                                    />
+                                            <Slider
+                                                label="Price Range"
+                                                step={1000}
+                                                minValue={minValue}
+                                                maxValue={maxValue}
+                                                defaultValue={[0, 50000]}
+                                                formatOptions={{ style: "currency", currency: "INR" }}
+                                                onChange={handleSliderChange}
+                                                className="max-w-full"
+                                            />
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                             
-                             {/* products */}
+
+                            {/* products */}
                             {product && product.length > 0 ?
-                                    <div className={` grid ${cols == 3 ? 'grid-cols-3' : cols === 2 ? 'grid-cols-2' : cols === 1 ? 'grid-cols-1' : 'grid-cols-3'} h-full w-[78vw] gap-4 p-4 sm:grid-cols-2 sm:w-[100%] `}>
-                                        {product.map((i) => (
-                                            <ProductCard
-                                                data={i} />
-                                        ))}
-                                    </div>
-                                    :
-                                    <div className='w-full h-[30vh] flex flex-col justify-center items-center'>
-                                        <h1 className=' font-bold text-5xl '>No Product </h1>
-                                        <h1 className=' font-bold text-5xl '>Come Back Later</h1>
-                                    </div>
-                                }
+                                <div className={` grid ${cols == 3 ? 'grid-cols-3' : cols === 2 ? 'grid-cols-2' : cols === 1 ? 'grid-cols-1' : 'grid-cols-3'} h-full w-[78vw] gap-4 p-4 sm:grid-cols-2 sm:w-[100%] `}>
+                                    {product.map((i) => (
+                                        <ProductCard
+                                            data={i} />
+                                    ))}
+                                </div>
+                                :
+                                <div className='w-full h-[30vh] flex flex-col justify-center items-center'>
+                                    <h1 className=' font-bold text-5xl '>No Product </h1>
+                                    <h1 className=' font-bold text-5xl '>Come Back Later</h1>
+                                </div>
+                            }
                         </div>
 
                     </div>
