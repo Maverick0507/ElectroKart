@@ -96,10 +96,9 @@ export const getSearchedProduct = async (keyword) => {
   }
 }
 
-export const getFilterProduct = async (newMinValue,newMaxValue) => {
-  console.log(newMinValue,newMaxValue);
+export const getFilterProduct = async (newMinValue,newMaxValue,subCategoryId) => {
   try {
-    const res = await axios.post('/api/user/getProductByFilter', {newMinValue, newMaxValue}, {
+    const res = await axios.post('/api/user/getProductByFilter', {newMinValue, newMaxValue,subCategoryId}, {
       headers: {
         'Content-Type': 'application/json',
       }

@@ -69,7 +69,7 @@ const page = ({ params }) => {
 
     const handleSliderChange = async (values) => {
         const [newMinValue, newMaxValue] = values;
-        const { data } = await getFilterProduct(newMinValue, newMaxValue);
+        const { data } = await getFilterProduct(newMinValue, newMaxValue,subCategoryId);
         if (data.success === true) {
             setProduct(data.Product);
         }

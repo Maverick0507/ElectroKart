@@ -9,11 +9,12 @@ export async function POST(req) {
         // Ensure that the database connection is established before proceeding
         await connectToDb();
 
-        const { newMinValue, newMaxValue } = await req.json();
+        const { newMinValue, newMaxValue,subCategoryId } = await req.json();
 
         const Product = await ProductModel
             .find({
                 // Assuming 'price' is the field in your ProductModel representing the product price
+                category:subCategoryId,
                 price: { $gte: newMinValue, $lte: newMaxValue }
             })
 
