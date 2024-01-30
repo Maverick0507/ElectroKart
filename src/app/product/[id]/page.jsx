@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 const page = ({ params }) => {
     const productId = params.id
     const router = useRouter()
+    
 
     const [product, setProduct] = useState({})
     const [productName, setProductName] = useState('')
@@ -109,9 +110,9 @@ const page = ({ params }) => {
 
                         {/* product data section */}
                         <div className="h-[100%] w-[60%] bg-white px-10 sm:w-full sm:mt-4">
-                            <p className=' text-gray-300 text-xl mb-8 font-semibold cursor-pointer'>
-                                <span className=' '
-                                 onClick={() => router.push('/')}>Home</span>/ <span>{product.productName}</span>
+                            <p className=' text-gray-300 text-xl mb-8 font-semibold cursor-pointer '>
+                                <span className=' hover:border-b-2 ease-in-out duration-200 hover:text-black border-black'
+                                    onClick={() => router.push('/')}>Home</span>/ <span>{product.productName}</span>
                             </p>
 
                             {/* product name */}
