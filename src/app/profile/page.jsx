@@ -106,8 +106,8 @@ const Page = () => {
         </Button>
       </div>
 
-      <div className="w-[90%] m-auto flex justify-between  mt-12 gap-4">
-        <div className=" w-full">
+      <div className="w-[90%] m-auto flex justify-between  mt-12 gap-4 sm:flex-col-reverse md:flex-col-reverse lg:flex-col-reverse">
+        <div className="order w-full sm:h-[50vh] md:h-[50vh] lg:h-[50vh]  overflow-scroll">
           <h1 className='font-bold text-xl'>Product Order</h1>
           {order.length === 0 ? <p>You haven't order any Product  yet.</p> : null}
           <div className='mt-5'>
@@ -123,7 +123,7 @@ const Page = () => {
                         src={productItem?.photos[0]} alt="" />
                       <p className={textStyle}>{productItem?.productName}</p>
                       <p className={textStyle}>Price: <span className=' font-semibold'>{productItem?.price}</span></p>
-                      <p className={textStyle}>Order Date: <span className=' font-semibold'>{productItem?.createdAt.slice(0, 10)}</span></p>
+                      <p className={`${textStyle} sm:hidden`}>Order Date: <span className=' font-semibold'>{productItem?.createdAt.slice(0, 10)}</span></p>
                     </div>
                   </div>
                 ))}
@@ -133,12 +133,12 @@ const Page = () => {
 
         </div>
 
-        <div className="profile">
+        <div className="profile ">
           <Tabs aria-label="Options" >
             <Tab key="Sign in" title="Account Details" className=''>
-              <Card className="md:w-[40vw] w-[50vw]">
+              <Card className=" w-[50vw] sm:w-full md:w-full lg:w-full">
                 <CardBody>
-                  <form action="" className="flex flex-col justify-between items-center">
+                  <form action="" className="flex flex-col justify-between items-center ">
                     <Input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
