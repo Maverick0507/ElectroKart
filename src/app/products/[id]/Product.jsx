@@ -8,7 +8,7 @@ import ProductCard from '@/components/ProductCard/index'
 import { CircularProgress, Slider } from '@nextui-org/react'
 
 
-const page = ({id  }) => {
+const Products = ({id  }) => {
     const subCategoryId = id
 
     const [product, setProduct] = useState([])
@@ -185,4 +185,4 @@ const page = ({id  }) => {
     )
 }
 
-export default page
+export default Products
