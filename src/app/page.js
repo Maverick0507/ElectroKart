@@ -22,13 +22,13 @@ import { useRouter } from "next/navigation";
 import Footer from '@/components/Footer/index'
 
 
+
 export default function Home() {
 
   const router = useRouter()
 
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  console.log(subCategory)
   const [parentCategoryIDs, setParentCategoryIDs] = useState([]);
 
   const [product, setProduct] = useState([])
