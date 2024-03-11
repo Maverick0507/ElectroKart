@@ -15,9 +15,9 @@ export default function Component() {
           <div className="space-y-6">
             <h2 className="text-lg md:text-xl font-bold">Contact Us</h2>
             <p className="text-sm md:text-base">
-              Phone: +91 8447348741
+              Phone: +91 123123457
               <br />
-              Email: info@elctromart.com
+              Email: info@elctrokart.com
               <br />
               Address: 123 Ecommerce St., Shopping City, 12345
             </p>
@@ -38,6 +38,11 @@ export default function Component() {
               <li>
                 <Link className="text-white hover:text-gray-300" href="#">
                   Size Guide
+                </Link>
+              </li>
+              <li>
+                <Link className="text-white hover:text-gray-300" href="#">
+                  Copyright @ kt_05
                 </Link>
               </li>
             </ul>

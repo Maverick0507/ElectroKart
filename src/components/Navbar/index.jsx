@@ -116,7 +116,7 @@ const Index = () => {
         </div>
 
         <div className="">
-          <p onClick={() => router.push('/')} className='font-bold text-lg cursor-pointer'>ElctroMart</p>
+          <p onClick={() => router.push('/')} className='font-bold text-lg cursor-pointer'>ElctroKart</p>
         </div>
 
         <motion.div
